@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60">
+  <style>
+    .logo-text { font-family: 'Playfair Display', serif; font-weight: 700; }
+    .primary { fill: #0d6e6e; }
+    .accent { fill: #d4af37; }
+  </style>
+  <g transform="translate(10, 35)">
+    <!-- Palm tree icon -->
+    <path class="primary" d="M30,0 C30,0 27,-15 20,-15 C13,-15 10,0 10,0 C10,0 0,-25 15,-30 C30,-25 30,0 30,0 Z" />
+    <path class="primary" d="M20,-5 L20,25" stroke-width="3" stroke="#0d6e6e" fill="none" />
+    
+    <!-- Wave -->
+    <path class="accent" d="M35,5 C40,2 45,2 50,5 C55,8 60,8 65,5 C70,2 75,2 80,5" stroke-width="2" stroke="#d4af37" fill="none" />
+    
+    <!-- Text -->
+    <text x="40" y="15" class="logo-text primary" font-size="24">Vinpearl</text>
+    <text x="40" y="25" class="logo-text accent" font-size="12">RESORT NHA TRANG</text>
+  </g>
+</svg> 
