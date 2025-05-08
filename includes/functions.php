@@ -479,3 +479,40 @@ function calculateBookingDuration($checkInDate, $checkOutDate) {
     
     return $interval->days;
 }
+
+/**
+ * Check if an email already exists in the database
+ * 
+ * @param string $email The email address to check
+ * @return bool True if email exists, false otherwise
+ */
+function emailExists($email) {
+    $conn = connectDatabase();
+    if (!$conn) {
+        return false;
+    }
+    
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+    
+    return ($count > 0);
+}
+
+/**
+ * Wrapper function for register() in auth.php
+ * 
+ * @param string $email    User's email
+ * @param string $password User's password (plain text)
+ * @param string $fullName User's full name
+ * @param string $phone    User's phone number (optional)
+ * 
+ * @return array|boolean Array with user data if successful, false if failed
+ */
+function registerUser($email, $password, $fullName, $phone = '') {
+    // Call the original register function from auth.php
+    return register($email, $password, $fullName, $phone);
+}
