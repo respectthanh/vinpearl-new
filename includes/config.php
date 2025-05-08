@@ -16,7 +16,7 @@ define('DEFAULT_LANGUAGE', 'en'); // 'en' for English, 'vi' for Vietnamese
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'vinpearl_resort');
 define('DB_USER', 'root');         // Change this to your MySQL username
-define('DB_PASS', '');             // Change this to your MySQL password
+define('DB_PASS', 'thyh8484');             // Change this to your MySQL password
 
 /**
  * Establish database connection

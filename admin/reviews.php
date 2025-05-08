@@ -73,8 +73,29 @@ if (!empty($search_term)) {
 }
 
 // Count total reviews for pagination
-$count_query = str_replace("r.*, u.full_name as user_name, CASE", "COUNT(*) as total", $query);
-$count_query = preg_replace('/SELECT.*?FROM/s', 'SELECT COUNT(*) as total FROM', $query);
+$count_query = "
+    SELECT COUNT(*) as total
+    FROM reviews r
+    JOIN users u ON r.user_id = u.id
+    WHERE 1=1
+";
+
+// Add the same filters to the count query
+if (!empty($status_filter)) {
+    if ($status_filter === 'approved') {
+        $count_query .= " AND r.is_approved = 1";
+    } elseif ($status_filter === 'pending') {
+        $count_query .= " AND r.is_approved = 0";
+    }
+}
+
+if (!empty($type_filter)) {
+    $count_query .= " AND r.type = ?";
+}
+
+if (!empty($search_term)) {
+    $count_query .= " AND (r.title_en LIKE ? OR r.title_vi LIKE ? OR r.content_en LIKE ? OR r.content_vi LIKE ? OR u.full_name LIKE ?)";
+}
 
 $stmt = $conn->prepare($count_query);
 

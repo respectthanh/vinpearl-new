@@ -148,7 +148,25 @@ if ($page > $total_pages && $total_pages > 0) {
 $query_parts = [];
 
 // Room bookings query
-$room_query = "SELECT rb.*, r.name_en, r.name_vi, r.image_url, u.full_name as user_name, u.email as user_email, 'room' as booking_type
+$room_query = "SELECT 
+               rb.id,
+               rb.room_id,
+               rb.user_id,
+               rb.check_in_date,
+               rb.check_out_date,
+               rb.guests as adults,
+               0 as children,
+               rb.total_price,
+               rb.status,
+               '' as special_requests,
+               rb.created_at,
+               rb.created_at as updated_at,
+               r.name_en,
+               r.name_vi,
+               r.image_url,
+               u.full_name as user_name,
+               u.email as user_email,
+               'room' as booking_type
                FROM room_bookings rb 
                JOIN users u ON rb.user_id = u.id
                JOIN rooms r ON rb.room_id = r.id
@@ -162,11 +180,29 @@ if (!empty($search_term)) {
 $query_parts[] = $room_query;
 
 // Package bookings query
-$package_query = "SELECT pb.*, p.name_en, p.name_vi, p.image_url, u.full_name as user_name, u.email as user_email, 'package' as booking_type
-                  FROM package_bookings pb 
-                  JOIN users u ON pb.user_id = u.id
-                  JOIN packages p ON pb.package_id = p.id
-                  WHERE 1=1";
+$package_query = "SELECT 
+                 pb.id,
+                 pb.package_id,
+                 pb.user_id,
+                 pb.start_date,
+                 pb.start_date as end_date,
+                 pb.guests as adults,
+                 0 as children,
+                 pb.total_price,
+                 pb.status,
+                 '' as special_requests,
+                 pb.created_at,
+                 pb.created_at as updated_at,
+                 p.name_en,
+                 p.name_vi,
+                 p.image_url,
+                 u.full_name as user_name,
+                 u.email as user_email,
+                 'package' as booking_type
+                 FROM package_bookings pb 
+                 JOIN users u ON pb.user_id = u.id
+                 JOIN packages p ON pb.package_id = p.id
+                 WHERE 1=1";
 if (!empty($status_filter)) {
     $package_query .= " AND pb.status = ?";
 }
@@ -176,11 +212,29 @@ if (!empty($search_term)) {
 $query_parts[] = $package_query;
 
 // Tour bookings query
-$tour_query = "SELECT tb.*, t.name_en, t.name_vi, t.image_url, u.full_name as user_name, u.email as user_email, 'tour' as booking_type
-               FROM tour_bookings tb 
-               JOIN users u ON tb.user_id = u.id
-               JOIN tours t ON tb.tour_id = t.id
-               WHERE 1=1";
+$tour_query = "SELECT 
+              tb.id,
+              tb.tour_id,
+              tb.user_id,
+              tb.tour_date,
+              tb.tour_date as end_date,
+              tb.guests as adults,
+              0 as children,
+              tb.total_price,
+              tb.status,
+              '' as special_requests,
+              tb.created_at,
+              tb.created_at as updated_at, 
+              t.name_en,
+              t.name_vi,
+              t.image_url,
+              u.full_name as user_name,
+              u.email as user_email,
+              'tour' as booking_type
+              FROM tour_bookings tb 
+              JOIN users u ON tb.user_id = u.id
+              JOIN tours t ON tb.tour_id = t.id
+              WHERE 1=1";
 if (!empty($status_filter)) {
     $tour_query .= " AND tb.status = ?";
 }
@@ -534,17 +588,7 @@ $activePage = 'bookings';
                                             <td>
                                                 <?php 
                                                 // Determine the ID field based on booking type
-                                                switch ($booking['booking_type']) {
-                                                    case 'room':
-                                                        echo $booking['room_booking_id'];
-                                                        break;
-                                                    case 'package':
-                                                        echo $booking['package_booking_id'];
-                                                        break;
-                                                    case 'tour':
-                                                        echo $booking['tour_booking_id'];
-                                                        break;
-                                                }
+                                                echo $booking['id'];
                                                 ?>
                                             </td>
                                             <td><?php echo $typeLabels[$booking['booking_type']]; ?></td>
@@ -579,14 +623,14 @@ $activePage = 'bookings';
                                             </td>
                                             <td>
                                                 <div class="table-actions">
-                                                    <a href="booking-details.php?type=<?php echo $booking['booking_type']; ?>&id=<?php echo ($booking['booking_type'] === 'room' ? $booking['room_booking_id'] : ($booking['booking_type'] === 'package' ? $booking['package_booking_id'] : $booking['tour_booking_id'])); ?>" class="btn btn-sm btn-info" title="<?php echo $language === 'vi' ? 'Xem' : 'View'; ?>"><i class="fas fa-eye"></i></a>
+                                                    <a href="booking-details.php?type=<?php echo $booking['booking_type']; ?>&id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-info" title="<?php echo $language === 'vi' ? 'Xem' : 'View'; ?>"><i class="fas fa-eye"></i></a>
                                                     
                                                     <?php if ($booking['status'] === 'pending'): ?>
-                                                        <a href="process-booking.php?action=confirm&type=<?php echo $booking['booking_type']; ?>&id=<?php echo ($booking['booking_type'] === 'room' ? $booking['room_booking_id'] : ($booking['booking_type'] === 'package' ? $booking['package_booking_id'] : $booking['tour_booking_id'])); ?>" class="btn btn-sm btn-success" title="<?php echo $language === 'vi' ? 'Xác nhận' : 'Confirm'; ?>"><i class="fas fa-check"></i></a>
+                                                        <a href="process-booking.php?action=confirm&type=<?php echo $booking['booking_type']; ?>&id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-success" title="<?php echo $language === 'vi' ? 'Xác nhận' : 'Confirm'; ?>"><i class="fas fa-check"></i></a>
                                                     <?php endif; ?>
                                                     
                                                     <?php if ($booking['status'] === 'pending' || $booking['status'] === 'confirmed'): ?>
-                                                        <a href="process-booking.php?action=cancel&type=<?php echo $booking['booking_type']; ?>&id=<?php echo ($booking['booking_type'] === 'room' ? $booking['room_booking_id'] : ($booking['booking_type'] === 'package' ? $booking['package_booking_id'] : $booking['tour_booking_id'])); ?>" class="btn btn-sm btn-danger delete-btn" title="<?php echo $language === 'vi' ? 'Hủy' : 'Cancel'; ?>"><i class="fas fa-times"></i></a>
+                                                        <a href="process-booking.php?action=cancel&type=<?php echo $booking['booking_type']; ?>&id=<?php echo $booking['id']; ?>" class="btn btn-sm btn-danger delete-btn" title="<?php echo $language === 'vi' ? 'Hủy' : 'Cancel'; ?>"><i class="fas fa-times"></i></a>
                                                     <?php endif; ?>
                                                 </div>
                                             </td>
@@ -632,4 +676,4 @@ $activePage = 'bookings';
 
     <script src="assets/js/admin.js"></script>
 </body>
-</html> 
+</html>

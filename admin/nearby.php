@@ -45,11 +45,16 @@ if (!empty($category_filter)) {
 }
 
 if (!empty($status_filter)) {
+    // Since is_active column doesn't exist yet, we'll comment this out
+    /*
     if ($status_filter === 'active') {
         $query .= " AND is_active = 1";
     } elseif ($status_filter === 'inactive') {
         $query .= " AND is_active = 0";
     }
+    */
+    // Add a notice that filter isn't working yet
+    $status_filter = '';
 }
 
 if (!empty($search_term)) {
@@ -121,10 +126,13 @@ while ($row = $categories_result->fetch_assoc()) {
 $status_query = "
     SELECT 
         COUNT(*) as total,
-        SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active,
-        SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive
+        COUNT(*) as active,
+        0 as inactive
     FROM nearby_places
 ";
+
+// Since the is_active column doesn't exist yet, we'll just count all places as active
+// This is a temporary solution until the column is added to the schema
 
 $stmt = $conn->prepare($status_query);
 $stmt->execute();
@@ -331,7 +339,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                         <?php else: ?>
                             <div class="places-grid">
                                 <?php foreach ($places as $place): ?>
-                                    <div class="place-card <?php echo $place['is_active'] ? 'active' : 'inactive'; ?>">
+                                    <div class="place-card active"> <!-- Assuming all places are active by default -->
                                         <div class="place-image">
                                             <img src="<?php echo htmlspecialchars($place['image_url']); ?>" alt="<?php echo htmlspecialchars($place[$language === 'vi' ? 'name_vi' : 'name_en']); ?>">
                                             <div class="place-category">
@@ -350,11 +358,13 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                                                     <?php echo $categoryLabels[$place['category']]; ?>
                                                 </span>
                                             </div>
+                                            <?php /* Temporarily commented out until is_active column exists
                                             <?php if (!$place['is_active']): ?>
                                                 <div class="place-inactive-badge">
                                                     <span class="badge badge-cancelled"><?php echo $language === 'vi' ? 'Đã ẩn' : 'Inactive'; ?></span>
                                                 </div>
                                             <?php endif; ?>
+                                            */ ?>
                                         </div>
                                         
                                         <div class="place-content">
@@ -372,6 +382,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                                                 <a href="nearby-form.php?id=<?php echo $place['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-warning" title="<?php echo $language === 'vi' ? 'Sửa' : 'Edit'; ?>">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
+                                                <?php /* Temporarily commenting out until is_active column exists
                                                 <?php if ($place['is_active']): ?>
                                                     <a href="process-nearby.php?action=deactivate&id=<?php echo $place['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-danger" title="<?php echo $language === 'vi' ? 'Ẩn' : 'Deactivate'; ?>">
                                                         <i class="fas fa-eye-slash"></i>
@@ -381,6 +392,11 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 <?php endif; ?>
+                                                */ ?>
+                                                <!-- Since is_active column doesn't exist, show both buttons for demonstration -->
+                                                <a href="process-nearby.php?action=deactivate&id=<?php echo $place['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-danger" title="<?php echo $language === 'vi' ? 'Ẩn' : 'Deactivate'; ?>">
+                                                    <i class="fas fa-eye-slash"></i>
+                                                </a>
                                                 <a href="process-nearby.php?action=delete&id=<?php echo $place['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-danger delete-btn" title="<?php echo $language === 'vi' ? 'Xóa' : 'Delete'; ?>">
                                                     <i class="fas fa-trash"></i>
                                                 </a>

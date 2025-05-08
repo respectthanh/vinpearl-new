@@ -39,17 +39,18 @@ $params = [];
 $param_types = '';
 
 if (!empty($role_filter)) {
-    $query .= " AND role = ?";
-    $param_types .= 's';
-    $params[] = $role_filter;
+    // Change role filter to use is_admin instead of role
+    if ($role_filter === 'admin') {
+        $query .= " AND is_admin = 1";
+    } elseif ($role_filter === 'user') {
+        $query .= " AND is_admin = 0";
+    }
 }
 
 if (!empty($status_filter)) {
-    if ($status_filter === 'active') {
-        $query .= " AND is_active = 1";
-    } elseif ($status_filter === 'inactive') {
-        $query .= " AND is_active = 0";
-    }
+    // Status filter is being removed as is_active column doesn't exist in the users table
+    // This filter functionality will be disabled
+    $status_filter = '';
 }
 
 if (!empty($search_term)) {
@@ -102,10 +103,10 @@ $users = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stats_query = "
     SELECT 
         COUNT(*) as total,
-        SUM(CASE WHEN role = 'admin' THEN 1 ELSE 0 END) as admins,
-        SUM(CASE WHEN role = 'user' THEN 1 ELSE 0 END) as users,
-        SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active,
-        SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive
+        SUM(CASE WHEN is_admin = 1 THEN 1 ELSE 0 END) as admins,
+        SUM(CASE WHEN is_admin = 0 THEN 1 ELSE 0 END) as users,
+        COUNT(*) as active,
+        0 as inactive
     FROM users
 ";
 
@@ -337,13 +338,13 @@ $pageTitle = $language === 'vi' ? 'Quản lý người dùng' : 'Users Managemen
                                                 <td><?php echo htmlspecialchars($user['email']); ?></td>
                                                 <td><?php echo htmlspecialchars($user['phone']); ?></td>
                                                 <td>
-                                                    <span class="badge <?php echo $user['role'] === 'admin' ? 'badge-info' : 'badge-secondary'; ?>">
-                                                        <?php echo $roleLabels[$user['role']]; ?>
+                                                    <span class="badge <?php echo $user['is_admin'] ? 'badge-info' : 'badge-secondary'; ?>">
+                                                        <?php echo $user['is_admin'] ? $roleLabels['admin'] : $roleLabels['user']; ?>
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="badge <?php echo $user['is_active'] ? 'badge-confirmed' : 'badge-cancelled'; ?>">
-                                                        <?php echo $user['is_active'] ? ($language === 'vi' ? 'Đang hoạt động' : 'Active') : ($language === 'vi' ? 'Không hoạt động' : 'Inactive'); ?>
+                                                    <span class="badge badge-confirmed">
+                                                        <?php echo $language === 'vi' ? 'Đang hoạt động' : 'Active'; ?>
                                                     </span>
                                                 </td>
                                                 <td><?php echo formatDate($user['created_at'], 'M d, Y'); ?></td>
@@ -355,16 +356,10 @@ $pageTitle = $language === 'vi' ? 'Quản lý người dùng' : 'Users Managemen
                                                         <a href="user-form.php?id=<?php echo $user['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-warning" title="<?php echo $language === 'vi' ? 'Sửa' : 'Edit'; ?>">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <?php if ($user['id'] !== $currentUser['id']): // Don't allow to toggle status of current user ?>
-                                                            <?php if ($user['is_active']): ?>
-                                                                <a href="process-user.php?action=deactivate&id=<?php echo $user['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-danger" title="<?php echo $language === 'vi' ? 'Vô hiệu hóa' : 'Deactivate'; ?>">
-                                                                    <i class="fas fa-user-slash"></i>
-                                                                </a>
-                                                            <?php else: ?>
-                                                                <a href="process-user.php?action=activate&id=<?php echo $user['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-success" title="<?php echo $language === 'vi' ? 'Kích hoạt' : 'Activate'; ?>">
-                                                                    <i class="fas fa-user-check"></i>
-                                                                </a>
-                                                            <?php endif; ?>
+                                                        <?php if ($user['id'] !== $currentUser['id']): // Don't allow actions on current user ?>
+                                                            <a href="process-user.php?action=deactivate&id=<?php echo $user['id']; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="btn btn-sm btn-danger" title="<?php echo $language === 'vi' ? 'Vô hiệu hóa' : 'Deactivate'; ?>">
+                                                                <i class="fas fa-user-slash"></i>
+                                                            </a>
                                                         <?php endif; ?>
                                                     </div>
                                                 </td>
