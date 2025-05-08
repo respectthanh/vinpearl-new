@@ -35,7 +35,7 @@ $pageTitle = isset($pageTitle) ? $pageTitle : '';
         <div class="container">
             <div class="logo">
                 <a href="index.php">
-                    <img src="https://placekitten.com/200/50" alt="Vinpearl Resort Nha Trang">
+                    <img src="/../assets/images/logo.svg" alt="Vinpearl Resort Nha Trang">
                 </a>
             </div>
             
