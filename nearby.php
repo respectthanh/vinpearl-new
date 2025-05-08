@@ -34,66 +34,10 @@ $currentUser = getCurrentUser();
 
 // Page title
 $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attractions';
-?>
 
-<!DOCTYPE html>
-<html lang="<?php echo $language; ?>">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/nearby-styles.css">
-    <!-- Add AOS animation library -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-</head>
-<body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <div class="logo">
-                <a href="index.php">
-                    <img src="assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
-                </a>
-            </div>
-            
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.php"><?php echo $language === 'vi' ? 'Trang chủ' : 'Home'; ?></a></li>
-                    <li><a href="rooms.php"><?php echo $language === 'vi' ? 'Phòng' : 'Rooms'; ?></a></li>
-                    <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
-                    <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
-                    <li><a href="nearby.php" class="active"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <div class="language-selector">
-                    <a href="?<?php echo !empty($category) ? "category=$category&" : ""; ?>lang=en" <?php echo $language === 'en' ? 'class="active"' : ''; ?>>EN</a> |
-                    <a href="?<?php echo !empty($category) ? "category=$category&" : ""; ?>lang=vi" <?php echo $language === 'vi' ? 'class="active"' : ''; ?>>VI</a>
-                </div>
-                
-                <div class="user-actions">
-                    <?php if (isLoggedIn()): ?>
-                        <div class="user-menu">
-                            <span>Hello, <?php echo htmlspecialchars($currentUser['full_name']); ?></span>
-                            <div class="dropdown-menu">
-                                <a href="profile.php"><?php echo $language === 'vi' ? 'Hồ sơ' : 'Profile'; ?></a>
-                                <a href="bookings.php"><?php echo $language === 'vi' ? 'Đặt chỗ' : 'My Bookings'; ?></a>
-                                <?php if (isAdmin()): ?>
-                                    <a href="admin/index.php"><?php echo $language === 'vi' ? 'Quản trị' : 'Admin Panel'; ?></a>
-                                <?php endif; ?>
-                                <a href="logout.php"><?php echo $language === 'vi' ? 'Đăng xuất' : 'Logout'; ?></a>
-                            </div>
-                        </div>
-                    <?php else: ?>
-                        <a href="login.php" class="btn btn-sm"><?php echo $language === 'vi' ? 'Đăng nhập' : 'Login'; ?></a>
-                        <a href="register.php" class="btn btn-sm btn-outline"><?php echo $language === 'vi' ? 'Đăng ký' : 'Register'; ?></a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </header>
+// Include header
+include 'includes/header.php';
+?>
 
     <!-- Hero Banner -->
     <section class="nearby-hero">

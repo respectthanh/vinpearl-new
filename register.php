@@ -70,44 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Page title
 $pageTitle = $language === 'vi' ? 'Đăng ký' : 'Register';
-?>
 
-<!DOCTYPE html>
-<html lang="<?php echo $language; ?>">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <div class="logo">
-                <a href="index.php">
-                    <img src="assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
-                </a>
-            </div>
-            
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.php"><?php echo $language === 'vi' ? 'Trang chủ' : 'Home'; ?></a></li>
-                    <li><a href="rooms.php"><?php echo $language === 'vi' ? 'Phòng' : 'Rooms'; ?></a></li>
-                    <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
-                    <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
-                    <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <div class="language-selector">
-                    <a href="?lang=en" <?php echo $language === 'en' ? 'class="active"' : ''; ?>>EN</a> |
-                    <a href="?lang=vi" <?php echo $language === 'vi' ? 'class="active"' : ''; ?>>VI</a>
-                </div>
-            </div>
-        </div>
-    </header>
+// Include header
+include 'includes/header.php';
+?>
 
     <!-- Registration Form -->
     <section class="auth-section">
