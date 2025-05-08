@@ -49,21 +49,34 @@
   z-index: 100;
 }
 
+/* Admin logo styles */
 .admin-brand {
-  padding: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--admin-border);
 }
 
 .admin-brand a {
   display: flex;
   align-items: center;
-  color: white;
+  color: var(--admin-primary);
   text-decoration: none;
+  width: 100%;
 }
 
-.admin-brand img {
-  height: 35px;
-  margin-right: 10px;
+.admin-brand img.admin-logo {
+  height: 40px;
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.admin-brand span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--admin-border);
 }
 
 .admin-nav ul {

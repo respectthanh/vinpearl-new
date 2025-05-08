@@ -65,11 +65,13 @@ include 'includes/header.php';
                     <div class="form-group">
                         <label for="email"><?php echo $language === 'vi' ? 'Email' : 'Email'; ?></label>
                         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                        <i class="fas fa-envelope"></i>
                     </div>
                     
                     <div class="form-group">
                         <label for="password"><?php echo $language === 'vi' ? 'Mật khẩu' : 'Password'; ?></label>
                         <input type="password" id="password" name="password" required>
+                        <i class="fas fa-lock"></i>
                     </div>
                     
                     <div class="form-group remember-me">
@@ -92,7 +94,27 @@ include 'includes/header.php';
         </div>
     </section>
 
-    <!-- Footer -->
-    <?php include 'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Password visibility toggle
+    const passwordField = document.getElementById('password');
+    const passwordIcon = passwordField.nextElementSibling;
+    
+    passwordIcon.classList.add('password-toggle');
+    passwordIcon.addEventListener('click', function() {
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            passwordIcon.classList.remove('fa-lock');
+            passwordIcon.classList.add('fa-lock-open');
+        } else {
+            passwordField.type = 'password';
+            passwordIcon.classList.remove('fa-lock-open');
+            passwordIcon.classList.add('fa-lock');
+        }
+    });
+});
+</script>
 </body>
 </html>

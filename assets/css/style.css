@@ -192,7 +192,8 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-md) var(--container-padding);
+  flex-wrap: wrap;
+  padding: 0.5rem var(--spacing-md);
 }
 
 .logo img {
@@ -1363,4 +1364,116 @@ section {
   .footer-columns {
     grid-template-columns: 1fr;
   }
-} 
+}
+
+/* Logo styles */
+.site-header .logo {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  margin-right: 20px;
+}
+
+.site-header .logo a {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+}
+
+.site-header .logo img {
+  height: 100%;
+  width: auto;
+  transition: transform 0.3s ease;
+  max-width: 240px;
+  object-fit: contain;
+}
+
+.site-header .logo img:hover {
+  transform: scale(1.05);
+}
+
+.site-header .logo .logo-mobile {
+  display: none;
+}
+
+/* Fix for site header layout */
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0.5rem var(--spacing-md);
+}
+
+.main-navigation {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Show mobile logo on small screens and fix responsive layout */
+@media (max-width: 992px) {
+  .site-header .container {
+    justify-content: space-between;
+  }
+  
+  .main-navigation {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header .logo .logo-desktop {
+    display: none;
+  }
+  
+  .site-header .logo .logo-mobile {
+    display: block;
+    height: 50px;
+    width: auto;
+  }
+  
+  .site-header .logo {
+    height: 50px;
+  }
+  
+  .header-actions {
+    flex-wrap: nowrap;
+  }
+}
+
+/* Fix hero section spacing after logo addition */
+.hero {
+  margin-top: 0;
+}
+
+/* Ensure mobile menu works properly with new logo */
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .main-navigation {
+    display: none;
+    width: 100%;
+  }
+  
+  .main-navigation.active {
+    display: block;
+  }
+  
+  .main-navigation ul {
+    flex-direction: column;
+  }
+  
+  .main-navigation ul li {
+    margin: 0.5rem 0;
+  }
+}

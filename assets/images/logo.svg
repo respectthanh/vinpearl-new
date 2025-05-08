@@ -1,0 +1,21 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background shape -->
+  <rect width="240" height="60" rx="4" fill="#0d6e6e" fill-opacity="0.1"/>
+  
+  <!-- Palm tree symbol -->
+  <path d="M35 12C35 12 32 16 32 20C32 24 35 26 35 30C35 34 32 38 32 42C32 46 35 50 35 50" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 16C38 18 41 19 44 19" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 20C39 22 42 22 45 21" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 24C38 25 41 25 44 24" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 28C39 29 42 29 44 27" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 32C38 34 40 34 43 33" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M35 36C39 37 41 37 43 36" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Wave symbol -->
+  <path d="M20 40C24 37 28 37 32 40C36 43 40 43 44 40" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M20 46C24 43 28 43 32 46C36 49 40 49 44 46" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Text -->
+  <text x="60" y="28" font-family="'Playfair Display', serif" font-size="20" font-weight="700" fill="#0d6e6e">VINPEARL</text>
+  <text x="60" y="46" font-family="'Roboto', sans-serif" font-size="14" font-weight="400" fill="#0d6e6e">RESORT NHA TRANG</text>
+</svg>

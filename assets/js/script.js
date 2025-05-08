@@ -9,6 +9,153 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initRoomBooking();
     initFormValidation();
+    
+    // Animate elements when they come into view
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.room-card, .service-card, .stat-item');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight;
+            
+            if (elementPosition < screenPosition - 100) {
+                element.classList.add('animate');
+            }
+        });
+    }
+    
+    // Run on page load
+    animateOnScroll();
+    
+    // Run on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Initialize date inputs with minimum today's date
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const today = new Date().toISOString().split('T')[0];
+    
+    dateInputs.forEach(input => {
+        if (input.getAttribute('min') === '<?php echo date("Y-m-d"); ?>' || !input.getAttribute('min')) {
+            input.setAttribute('min', today);
+        }
+        
+        // If it's a check-out date and no value is set, default to tomorrow
+        if (input.id === 'check_out_date' && !input.value) {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            input.setAttribute('min', tomorrowStr);
+        }
+    });
+    
+    // Handle check-in/check-out date relationship
+    const checkInInput = document.getElementById('check_in_date');
+    const checkOutInput = document.getElementById('check_out_date');
+    
+    if (checkInInput && checkOutInput) {
+        checkInInput.addEventListener('change', function() {
+            // Set checkout minimum date to be at least check-in date + 1
+            const checkInDate = new Date(this.value);
+            checkInDate.setDate(checkInDate.getDate() + 1);
+            const newMinDate = checkInDate.toISOString().split('T')[0];
+            checkOutInput.setAttribute('min', newMinDate);
+            
+            // If current checkout date is now invalid, update it
+            if (checkOutInput.value && new Date(checkOutInput.value) <= new Date(this.value)) {
+                checkOutInput.value = newMinDate;
+            }
+        });
+    }
+
+    // Simple testimonial slider
+    let currentTestimonial = 0;
+    const testimonials = document.querySelectorAll('.testimonial-slide');
+    
+    if (testimonials.length > 1) {
+        // Hide all slides except the first one
+        for (let i = 1; i < testimonials.length; i++) {
+            testimonials[i].style.display = 'none';
+        }
+        
+        // Change testimonial every 5 seconds
+        setInterval(() => {
+            testimonials[currentTestimonial].style.display = 'none';
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].style.display = 'block';
+        }, 5000);
+    }
+
+    // Enhanced testimonial slider for homepage
+    const enhancedTestimonials = document.querySelectorAll('.testimonial-slide');
+    
+    if (enhancedTestimonials.length > 1) {
+        // Hide all except first testimonial
+        for (let i = 1; i < enhancedTestimonials.length; i++) {
+            enhancedTestimonials[i].style.display = 'none';
+        }
+        
+        let currentEnhancedTestimonial = 0;
+        
+        // Transition function with fade effect
+        function showNextTestimonial() {
+            // Fade out current testimonial
+            enhancedTestimonials[currentEnhancedTestimonial].style.opacity = '0';
+            
+            setTimeout(function() {
+                // Hide current testimonial
+                enhancedTestimonials[currentEnhancedTestimonial].style.display = 'none';
+                
+                // Move to next testimonial
+                currentEnhancedTestimonial = (currentEnhancedTestimonial + 1) % enhancedTestimonials.length;
+                
+                // Show next testimonial
+                enhancedTestimonials[currentEnhancedTestimonial].style.display = 'block';
+                
+                // Fade in next testimonial
+                setTimeout(function() {
+                    enhancedTestimonials[currentEnhancedTestimonial].style.opacity = '1';
+                }, 50);
+                
+            }, 500);
+        }
+        
+        // Set initial opacity for transition
+        enhancedTestimonials.forEach(testimonial => {
+            testimonial.style.transition = 'opacity 0.5s ease';
+            testimonial.style.opacity = '1';
+        });
+        
+        // Cycle through testimonials
+        setInterval(showNextTestimonial, 5000);
+    }
+
+    // Animate room cards immediately on page load
+    const roomCards = document.querySelectorAll('.room-card');
+    roomCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('animate');
+        }, 200 * index); // Stagger the animations
+    });
+    
+    // Animate elements when they come into view
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.service-card, .stat-item');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight;
+            
+            if (elementPosition < screenPosition - 100) {
+                element.classList.add('animate');
+            }
+        });
+    }
+    
+    // Run on page load
+    animateOnScroll();
+    
+    // Run on scroll
+    window.addEventListener('scroll', animateOnScroll);
 });
 
 /**
@@ -199,14 +346,17 @@ function initDatePickers() {
  * Initialize mobile menu functionality
  */
 function initMobileMenu() {
-    // Get mobile menu button and navigation
-    const menuButton = document.querySelector('.mobile-menu-btn');
-    const navigation = document.querySelector('.main-navigation');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mainNavigation = document.querySelector('.main-navigation');
     
-    if (menuButton && navigation) {
-        menuButton.addEventListener('click', function() {
-            navigation.classList.toggle('mobile-nav-open');
-            this.classList.toggle('menu-open');
+    if (mobileMenuBtn && mainNavigation) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNavigation.classList.toggle('active');
+            this.classList.toggle('active');
+            
+            // Accessibility
+            const expanded = mainNavigation.classList.contains('active');
+            this.setAttribute('aria-expanded', expanded.toString());
         });
     }
 }
@@ -385,4 +535,4 @@ function formatCurrency(amount, currencyCode = 'USD') {
         // Standard 2 decimal places for most currencies
         return symbol + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-} 
+}

@@ -1,0 +1,17 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background shape -->
+  <rect width="50" height="50" rx="4" fill="#0d6e6e" fill-opacity="0.1"/>
+  
+  <!-- Palm tree symbol -->
+  <path d="M25 7C25 7 22 11 22 15C22 19 25 21 25 25C25 29 22 33 22 37C22 41 25 45 25 45" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M25 11C28 13 31 14 34 14" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M25 15C29 17 32 17 35 16" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M25 19C28 20 31 20 34 19" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Wave symbol -->
+  <path d="M15 35C18 32 21 32 25 35C29 38 32 38 35 35" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  <path d="M15 40C18 37 21 37 25 40C29 43 32 43 35 40" stroke="#0d6e6e" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- V letter -->
+  <text x="14" y="30" font-family="'Playfair Display', serif" font-size="18" font-weight="700" fill="#0d6e6e">V</text>
+</svg>

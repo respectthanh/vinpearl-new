@@ -18,11 +18,16 @@ $pageTitle = isset($pageTitle) ? $pageTitle : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo ($language == 'en') ? 'Vinpearl Resort Nha Trang - Luxury Beach Resort' : 'Vinpearl Resort Nha Trang - Khu Nghỉ Dưỡng Biển Sang Trọng'; ?></title>
+    <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <?php if (basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'register.php' || basename($_SERVER['PHP_SELF']) == 'forgot-password.php'): ?>
+    <link rel="stylesheet" href="assets/css/auth-styles.css">
+    <?php endif; ?>
+    <?php if (basename($_SERVER['PHP_SELF']) == 'index.php'): ?>
     <link rel="stylesheet" href="assets/css/home-styles.css">
+    <?php endif; ?>
 </head>
 <body>
     <!-- Header -->
@@ -30,7 +35,7 @@ $pageTitle = isset($pageTitle) ? $pageTitle : '';
         <div class="container">
             <div class="logo">
                 <a href="index.php">
-                    <img src="assets/images/logo/logo.svg" alt="Vinpearl Resort Nha Trang">
+                    <img src="https://placekitten.com/200/50" alt="Vinpearl Resort Nha Trang">
                 </a>
             </div>
             

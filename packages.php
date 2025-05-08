@@ -109,7 +109,7 @@ $pageTitle = $language === 'vi' ? 'Gói Kỳ Nghỉ - Vinpearl Resort Nha Trang'
     <?php include 'includes/header.php'; ?>
 
     <!-- Hero Section -->
-    <section class="hero packages-hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+    <section class="hero packages-hero" style="background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(109, 103, 103, 0.5)), url('https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
         <div class="container">
             <div class="hero-content">
                 <h1><?php echo ($language === 'vi') ? 'Gói Kỳ Nghỉ' : 'Vacation Packages'; ?></h1>

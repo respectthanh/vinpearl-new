@@ -51,20 +51,20 @@ INSERT INTO packages (name_en, name_vi, description_en, description_vi, price, d
                  includes_text_en, includes_text_vi, image_url) 
                  VALUES ('Family Adventure', 'Phiêu Lưu Gia Đình', 'Fun-filled package for the whole family with activities for all ages.', 
                  'Gói đầy niềm vui cho cả gia đình với các hoạt động cho mọi lứa tuổi.', 800.0, 5, 
-                 'Family Villa, Daily breakfast, Water park access, Dolphin show, Island tour', 'Biệt Thự Gia Đình, Bữa sáng hàng ngày, Vào công viên nước, Xem show cá heo, Tour tham quan đảo', 'assets/images/packages/family.jpg');
+                 'Family Villa, Daily breakfast, Water park access, Dolphin show, Island tour', 'Biệt Thự Gia Đình, Bữa sáng hàng ngày, Vào công viên nước, Xem show cá heo, Tour tham quan đảo', 'https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
 UPDATE packages SET image_url = 'https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' WHERE name_en = 'Family Adventure';
 INSERT INTO tours (name_en, name_vi, description_en, description_vi, price_per_person, duration, 
                 departure_time, meeting_point_en, meeting_point_vi, includes_text_en, includes_text_vi, image_url) 
                 VALUES ('Island Hopping Tour', 'Tour Khám Phá Đảo', 'Discover the beautiful islands surrounding Nha Trang.', 
                 'Khám phá những hòn đảo xinh đẹp xung quanh Nha Trang.', 45.0, '6 hours', 
                 '09:00 AM', 'Vinpearl Resort Lobby', 'Sảnh Vinpearl Resort', 
-                'Boat transportation, Lunch, Snorkeling gear, Tour guide', 'Phương tiện đi lại bằng thuyền, Bữa trưa, Dụng cụ lặn, Hướng dẫn viên', 'assets/images/tours/island-hopping.jpg');
+                'Boat transportation, Lunch, Snorkeling gear, Tour guide', 'Phương tiện đi lại bằng thuyền, Bữa trưa, Dụng cụ lặn, Hướng dẫn viên', 'https://images.unsplash.com/photo-1559599158-6a462e94b8ef?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO tours (name_en, name_vi, description_en, description_vi, price_per_person, duration, 
                 departure_time, meeting_point_en, meeting_point_vi, includes_text_en, includes_text_vi, image_url) 
                 VALUES ('City Cultural Tour', 'Tour Văn Hóa Thành Phố', 'Explore the rich cultural heritage of Nha Trang city.', 
                 'Khám phá di sản văn hóa phong phú của thành phố Nha Trang.', 35.0, '4 hours', 
                 '02:00 PM', 'Vinpearl Resort Lobby', 'Sảnh Vinpearl Resort', 
-                'Transportation, Temple entrance fees, Tour guide, Afternoon tea', 'Phương tiện đi lại, Phí vào cổng đền, Hướng dẫn viên, Trà chiều', 'assets/images/tours/city-cultural.jpg');
+                'Transportation, Temple entrance fees, Tour guide, Afternoon tea', 'Phương tiện đi lại, Phí vào cổng đền, Hướng dẫn viên, Trà chiều', 'https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO room_bookings (user_id, room_id, check_in_date, check_out_date, guests, total_price, status) 
                  VALUES (2, 1, '2023-06-10', '2023-06-15', 
                  2, 750.0, 'completed');
@@ -110,25 +110,25 @@ INSERT INTO nearby_places (name_en, name_vi, description_en, description_vi, cat
                  VALUES ('Long Son Pagoda', 'Chùa Long Sơn', 'Historic Buddhist temple with a large white Buddha statue overlooking the city.', 
                  'Ngôi chùa Phật giáo lịch sử với tượng Phật trắng lớn nhìn xuống thành phố.', 'attraction', '22 October 23 Street, Nha Trang, Vietnam', 4.5, 
                  '+84 258 3522 525', 'https://example.com/longson', '', 
-                 '7:00 AM - 6:00 PM', '$', 'assets/images/nearby/long-son-pagoda.jpg');
+                 '7:00 AM - 6:00 PM', '$', 'https://images.unsplash.com/photo-1562822039-a3af50107a78?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO nearby_places (name_en, name_vi, description_en, description_vi, category, address, 
                  distance_km, contact_phone, website_url, booking_url, opening_hours, price_level, image_url) 
                  VALUES ('Sailing Club Restaurant', 'Nhà hàng Sailing Club', 'Beachfront restaurant serving international cuisine with stunning ocean views.', 
                  'Nhà hàng bên bãi biển phục vụ ẩm thực quốc tế với tầm nhìn ra biển tuyệt đẹp.', 'restaurant', '72-74 Tran Phu Street, Nha Trang, Vietnam', 2.8, 
                  '+84 258 3524 628', 'https://example.com/sailingclub', 'https://example.com/sailingclub/reservations', 
-                 '11:00 AM - 12:00 AM', '$$$', 'assets/images/nearby/sailing-club.jpg');
+                 '11:00 AM - 12:00 AM', '$$$', 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO nearby_places (name_en, name_vi, description_en, description_vi, category, address, 
                  distance_km, contact_phone, website_url, booking_url, opening_hours, price_level, image_url) 
                  VALUES ('Nha Trang Night Market', 'Chợ Đêm Nha Trang', 'Vibrant night market selling local goods, crafts, and street food.', 
                  'Chợ đêm sôi động bán hàng hóa địa phương, đồ thủ công và đồ ăn đường phố.', 'shopping', 'Tran Phu Street, Nha Trang, Vietnam', 3.2, 
                  '', '', '', 
-                 '6:00 PM - 12:00 AM', '$', 'assets/images/nearby/night-market.jpg');
+                 '6:00 PM - 12:00 AM', '$', 'https://images.unsplash.com/photo-1555400038-63f5ba517a47?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO nearby_places (name_en, name_vi, description_en, description_vi, category, address, 
                  distance_km, contact_phone, website_url, booking_url, opening_hours, price_level, image_url) 
                  VALUES ('Rainforest Cafe', 'Quán Cà Phê Rừng Mưa', 'Cozy cafe with a tropical rainforest theme and excellent Vietnamese coffee.', 
                  'Quán cà phê ấm cúng với chủ đề rừng mưa nhiệt đới và cà phê Việt Nam tuyệt vời.', 'cafe', '56 Nguyen Thien Thuat Street, Nha Trang, Vietnam', 3.8, 
                  '+84 258 3526 789', 'https://example.com/rainforestcafe', '', 
-                 '7:00 AM - 10:00 PM', '$$', 'assets/images/nearby/rainforest-cafe.jpg');
+                 '7:00 AM - 10:00 PM', '$$', 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO content (page, section, key_name, content_en, content_vi) 
                  VALUES ('home', 'hero', 'title', 
                  'Welcome to Vinpearl Resort Nha Trang', 'Chào mừng đến với Vinpearl Resort Nha Trang');
@@ -150,10 +150,15 @@ INSERT INTO content (page, section, key_name, content_en, content_vi)
 INSERT INTO promotional_banners (title_en, title_vi, description_en, description_vi, image_url, 
                  link_url, is_active, position, start_date, end_date) 
                  VALUES ('Summer Special', 'Ưu Đãi Mùa Hè', 'Enjoy 20% off on all room bookings during summer months', 
-                 'Giảm 20% cho tất cả các đặt phòng trong những tháng hè', 'assets/images/banners/summer-special.jpg', 'promotions/summer-special', 
+                 'Giảm 20% cho tất cả các đặt phòng trong những tháng hè', 'https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=1600&auto=format&fit=crop', 'promotions/summer-special', 
                  1, 1, '2023-06-01', '2023-08-31');
 INSERT INTO promotional_banners (title_en, title_vi, description_en, description_vi, image_url, 
                  link_url, is_active, position, start_date, end_date) 
                  VALUES ('Honeymoon Package', 'Gói Trăng Mật', 'Special honeymoon package with romantic dinner and spa treatments', 
-                 'Gói trăng mật đặc biệt với bữa tối lãng mạn và các liệu pháp spa', 'assets/images/banners/honeymoon.jpg', 'packages/honeymoon', 
+                 'Gói trăng mật đặc biệt với bữa tối lãng mạn và các liệu pháp spa', 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1600&auto=format&fit=crop', 'packages/honeymoon', 
                  1, 2, '2023-01-01', '2023-12-31');
+INSERT INTO promotional_banners (title_en, title_vi, description_en, description_vi, image_url, 
+                 link_url, is_active, position, start_date, end_date) 
+                 VALUES ('Family Fun', 'Vui Chơi Gia Đình', 'Create unforgettable memories with our special family package including activities for children', 
+                 'Tạo những kỷ niệm khó quên với gói gia đình đặc biệt của chúng tôi bao gồm các hoạt động cho trẻ em', 'https://images.unsplash.com/photo-1551524358-f34c0214781d?q=80&w=1600&auto=format&fit=crop', 'packages/family', 
+                 1, 3, '2023-01-01', '2023-12-31');

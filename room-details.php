@@ -124,6 +124,8 @@ $pageTitle = $language === 'vi' ? $room['name_vi'] : $room['name_en'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/room-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
@@ -190,9 +192,24 @@ $pageTitle = $language === 'vi' ? $room['name_vi'] : $room['name_en'];
             <div class="room-gallery">
                 <div class="room-slider">
                     <?php foreach ($images as $index => $image): ?>
-                        <div class="room-slide" <?php echo $index > 0 ? 'style="display: none;"' : ''; ?>>
+                        <div class="room-slide <?php echo $index === 0 ? 'active' : ''; ?>" <?php echo $index > 0 ? 'style="display: none;"' : ''; ?>>
                             <img src="<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($room[$language === 'vi' ? 'name_vi' : 'name_en']); ?>">
                         </div>
+                    <?php endforeach; ?>
+                </div>
+                
+                <div class="gallery-nav">
+                    <button class="prev-slide" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="next-slide" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="gallery-dots">
+                    <?php foreach ($images as $index => $image): ?>
+                        <button class="gallery-dot <?php echo $index === 0 ? 'active' : ''; ?>" data-slide="<?php echo $index; ?>" aria-label="Go to image <?php echo $index + 1; ?>"></button>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -328,5 +345,121 @@ $pageTitle = $language === 'vi' ? $room['name_vi'] : $room['name_en'];
 
     <!-- Footer -->
     <?php include 'includes/footer.php'; ?>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Room gallery slider functionality
+        const slides = document.querySelectorAll('.room-slide');
+        const dots = document.querySelectorAll('.gallery-dot');
+        const prevButton = document.querySelector('.prev-slide');
+        const nextButton = document.querySelector('.next-slide');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        
+        // Function to show a specific slide
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.style.display = 'none');
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show the selected slide
+            slides[index].style.display = 'block';
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        // Event listeners for navigation buttons
+        if (prevButton && nextButton && totalSlides > 1) {
+            prevButton.addEventListener('click', () => {
+                let index = currentSlide - 1;
+                if (index < 0) index = totalSlides - 1;
+                showSlide(index);
+            });
+            
+            nextButton.addEventListener('click', () => {
+                let index = currentSlide + 1;
+                if (index >= totalSlides) index = 0;
+                showSlide(index);
+            });
+            
+            // Event listeners for dot navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+        } else {
+            // Hide navigation if only one image
+            if (prevButton && nextButton) {
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+            }
+        }
+        
+        // Initialize booking form date validation
+        const checkInDate = document.getElementById('check_in_date');
+        const checkOutDate = document.getElementById('check_out_date');
+        
+        if (checkInDate && checkOutDate) {
+            // Set min dates to today and tomorrow
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+            
+            checkInDate.min = formatDate(today);
+            checkOutDate.min = formatDate(tomorrow);
+            
+            // Update checkout min date when checkin changes
+            checkInDate.addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                const nextDay = new Date(selectedDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                
+                checkOutDate.min = formatDate(nextDay);
+                
+                // If checkout date is before new minimum, update it
+                if (checkOutDate.value && new Date(checkOutDate.value) <= selectedDate) {
+                    checkOutDate.value = formatDate(nextDay);
+                }
+                
+                updateTotalPrice();
+            });
+            
+            // Update total price calculation
+            checkOutDate.addEventListener('change', updateTotalPrice);
+            
+            function updateTotalPrice() {
+                if (checkInDate.value && checkOutDate.value) {
+                    // Calculate number of nights
+                    const checkIn = new Date(checkInDate.value);
+                    const checkOut = new Date(checkOutDate.value);
+                    const nights = Math.floor((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+                    
+                    if (nights > 0) {
+                        // Get room price from data attribute
+                        const roomPrice = parseFloat(document.getElementById('room-price').dataset.price);
+                        const totalPrice = roomPrice * nights;
+                        
+                        // Update displayed total price
+                        document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+                        
+                        // Update hidden total price input
+                        const totalPriceInput = document.getElementById('total_price');
+                        if (totalPriceInput) {
+                            totalPriceInput.value = totalPrice.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+    </script>
 </body>
 </html>
