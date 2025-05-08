@@ -148,6 +148,7 @@ $typeLabels = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
@@ -166,7 +167,6 @@ $typeLabels = [
                     <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
                     <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
                     <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                    <li><a href="contact.php"><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></a></li>
                 </ul>
             </nav>
             
@@ -194,10 +194,31 @@ $typeLabels = [
     </header>
 
     <!-- Page Header -->
-    <div class="page-header">
+    <div class="page-header bookings-header">
         <div class="container">
-            <h1><?php echo $pageTitle; ?></h1>
-            <p><?php echo $language === 'vi' ? 'Quản lý các đặt chỗ của bạn' : 'Manage your bookings'; ?></p>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1><?php echo $pageTitle; ?></h1>
+                    <p><?php echo $language === 'vi' ? 'Quản lý các đặt chỗ của bạn' : 'Manage your bookings'; ?></p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="stat-number"><?php echo count($all_bookings); ?></span>
+                        <span class="stat-label"><?php echo $language === 'vi' ? 'Tổng đặt chỗ' : 'Total Bookings'; ?></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span class="stat-number"><?php echo count(array_filter($all_bookings, function($b) { return $b['status'] === 'pending'; })); ?></span>
+                        <span class="stat-label"><?php echo $language === 'vi' ? 'Đang chờ' : 'Pending'; ?></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="stat-number"><?php echo count(array_filter($all_bookings, function($b) { return $b['status'] === 'confirmed'; })); ?></span>
+                        <span class="stat-label"><?php echo $language === 'vi' ? 'Đã xác nhận' : 'Confirmed'; ?></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -205,8 +226,12 @@ $typeLabels = [
     <section class="bookings-filter">
         <div class="container">
             <div class="filter-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="bookingSearch" placeholder="<?php echo $language === 'vi' ? 'Tìm kiếm đặt chỗ...' : 'Search bookings...'; ?>">
+                </div>
                 <div class="filter-group">
-                    <span class="filter-label"><?php echo $language === 'vi' ? 'Loại:' : 'Type:'; ?></span>
+                    <span class="filter-label"><i class="fas fa-filter"></i> <?php echo $language === 'vi' ? 'Loại:' : 'Type:'; ?></span>
                     <div class="filter-options">
                         <a href="?<?php echo !empty($_GET['status']) ? 'status=' . urlencode($_GET['status']) . '&' : ''; ?><?php echo $language === 'vi' ? 'lang=vi' : ''; ?>" class="filter-btn <?php echo empty($type_filter) ? 'active' : ''; ?>">
                             <?php echo $language === 'vi' ? 'Tất cả' : 'All'; ?>
@@ -381,6 +406,10 @@ $typeLabels = [
     <div id="cancelBookingModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
+                <h3><?php echo $language === 'vi' ? 'Xác nhận hủy đặt chỗ' : 'Confirm Cancellation'; ?></h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-header">
                 <h2><?php echo $language === 'vi' ? 'Xác nhận hủy đặt chỗ' : 'Confirm Cancellation'; ?></h2>
                 <span class="close-modal">&times;</span>
             </div>
@@ -423,8 +452,7 @@ $typeLabels = [
                         <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
                         <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
                         <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                        <li><a href="contact.php"><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></a></li>
-                    </ul>
+                        </ul>
                 </div>
                 
                 <div class="footer-column">
@@ -481,6 +509,7 @@ $typeLabels = [
             });
         });
     </script>
+    <script src="assets/js/bookings.js"></script>
 </body>
 </html>
 

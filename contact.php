@@ -67,6 +67,8 @@ $pageTitle = $language === 'vi' ? 'Liên Hệ' : 'Contact Us';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/contact-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
@@ -117,47 +119,49 @@ $pageTitle = $language === 'vi' ? 'Liên Hệ' : 'Contact Us';
         </div>
     </header>
 
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="container">
-            <h1><?php echo $pageTitle; ?></h1>
-            <p><?php echo $language === 'vi' ? 'Liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi nào' : 'Get in touch with us if you have any questions'; ?></p>
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vinpearl Resort" class="contact-hero-bg">
+        <div class="contact-hero-overlay"></div>
+        <div class="contact-hero-content">
+            <h1 class="animated"><?php echo $pageTitle; ?></h1>
+            <p class="animated delay-1"><?php echo $language === 'vi' ? 'Liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi nào hoặc muốn đặt trước dịch vụ tại khu nghỉ dưỡng sang trọng của chúng tôi' : 'Get in touch with us if you have any questions or want to pre-book services at our luxury resort'; ?></p>
         </div>
-    </div>
+    </section>
 
     <!-- Contact Information -->
     <section class="contact-info">
         <div class="container">
             <div class="contact-grid">
-                <div class="contact-item">
+                <div class="contact-item animated delay-1">
                     <div class="contact-icon">
-                        <img src="assets/images/icons/location.svg" alt="Address">
+                        <img src="https://cdn-icons-png.flaticon.com/512/484/484167.png" alt="Address">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Địa chỉ' : 'Address'; ?></h3>
                     <p>Vinpearl Resort Nha Trang,<br>Đảo Hòn Tre, Nha Trang,<br>Khánh Hòa, Việt Nam</p>
                 </div>
                 
-                <div class="contact-item">
+                <div class="contact-item animated delay-2">
                     <div class="contact-icon">
-                        <img src="assets/images/icons/phone.svg" alt="Phone">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3059/3059502.png" alt="Phone">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Điện thoại' : 'Phone'; ?></h3>
                     <p>+84 258 598 9999</p>
                     <p>+84 258 598 8888</p>
                 </div>
                 
-                <div class="contact-item">
+                <div class="contact-item animated delay-3">
                     <div class="contact-icon">
-                        <img src="assets/images/icons/email.svg" alt="Email">
+                        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
                     </div>
                     <h3>Email</h3>
                     <p>info@vinpearl.com</p>
                     <p>reservations@vinpearl.com</p>
                 </div>
                 
-                <div class="contact-item">
+                <div class="contact-item animated delay-4">
                     <div class="contact-icon">
-                        <img src="assets/images/icons/clock.svg" alt="Hours">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2784/2784459.png" alt="Hours">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Giờ làm việc' : 'Business Hours'; ?></h3>
                     <p><?php echo $language === 'vi' ? 'Lễ tân: 24/7' : 'Reception: 24/7'; ?></p>
@@ -170,19 +174,24 @@ $pageTitle = $language === 'vi' ? 'Liên Hệ' : 'Contact Us';
     <!-- Contact Form -->
     <section class="contact-form-section">
         <div class="container">
+            <div class="section-header animated">
+                <h2><?php echo $language === 'vi' ? 'Liên hệ với chúng tôi' : 'Get in Touch'; ?></h2>
+                <p><?php echo $language === 'vi' ? 'Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn' : 'We\'re here to listen and assist you'; ?></p>
+            </div>
+            
             <div class="form-map-container">
-                <div class="contact-form-container">
+                <div class="contact-form-container animated delay-1">
                     <h2><?php echo $language === 'vi' ? 'Gửi tin nhắn cho chúng tôi' : 'Send Us a Message'; ?></h2>
                     
                     <?php if ($submitted): ?>
                         <div class="alert alert-success">
-                            <?php echo $language === 'vi' ? 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất!' : 'Thank you for contacting us. We will respond as soon as possible!'; ?>
+                            <i class="fas fa-check-circle"></i> <?php echo $language === 'vi' ? 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất!' : 'Thank you for contacting us. We will respond as soon as possible!'; ?>
                         </div>
                     <?php endif; ?>
                     
                     <?php if (!empty($error)): ?>
                         <div class="alert alert-error">
-                            <?php echo htmlspecialchars($error); ?>
+                            <i class="fas fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
                         </div>
                     <?php endif; ?>
                     
@@ -190,87 +199,112 @@ $pageTitle = $language === 'vi' ? 'Liên Hệ' : 'Contact Us';
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name"><?php echo $language === 'vi' ? 'Họ tên *' : 'Full Name *'; ?></label>
-                                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($form_data['name']); ?>" required>
+                                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($form_data['name']); ?>" placeholder="<?php echo $language === 'vi' ? 'Nhập họ tên của bạn' : 'Enter your full name'; ?>" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($form_data['email']); ?>" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="phone"><?php echo $language === 'vi' ? 'Số điện thoại' : 'Phone Number'; ?></label>
-                                <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($form_data['phone']); ?>">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject"><?php echo $language === 'vi' ? 'Chủ đề *' : 'Subject *'; ?></label>
-                                <input type="text" id="subject" name="subject" value="<?php echo htmlspecialchars($form_data['subject']); ?>" required>
+                                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($form_data['email']); ?>" placeholder="<?php echo $language === 'vi' ? 'Nhập email của bạn' : 'Enter your email address'; ?>" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="message"><?php echo $language === 'vi' ? 'Tin nhắn *' : 'Message *'; ?></label>
-                            <textarea id="message" name="message" rows="6" required><?php echo htmlspecialchars($form_data['message']); ?></textarea>
+                            <label for="phone"><?php echo $language === 'vi' ? 'Số điện thoại' : 'Phone Number'; ?></label>
+                            <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($form_data['phone']); ?>" placeholder="<?php echo $language === 'vi' ? 'Nhập số điện thoại của bạn' : 'Enter your phone number'; ?>">
                         </div>
                         
-                        <div class="form-actions">
-                            <button type="submit" class="btn"><?php echo $language === 'vi' ? 'Gửi tin nhắn' : 'Send Message'; ?></button>
+                        <div class="form-group">
+                            <label for="subject"><?php echo $language === 'vi' ? 'Tiêu đề *' : 'Subject *'; ?></label>
+                            <input type="text" id="subject" name="subject" value="<?php echo htmlspecialchars($form_data['subject']); ?>" placeholder="<?php echo $language === 'vi' ? 'Nhập tiêu đề' : 'Enter subject'; ?>" required>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="message"><?php echo $language === 'vi' ? 'Tin nhắn *' : 'Message *'; ?></label>
+                            <textarea id="message" name="message" rows="3" placeholder="<?php echo $language === 'vi' ? 'Nhập tin nhắn của bạn' : 'Enter your message'; ?>" required><?php echo htmlspecialchars($form_data['message']); ?></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">
+                            <i class="fas fa-paper-plane"></i> <?php echo $language === 'vi' ? 'Gửi tin nhắn' : 'Send Message'; ?>
+                        </button>
                     </form>
                 </div>
                 
-                <div class="contact-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.740916176312!2d109.21988495223439!3d12.264967685683095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31706700a58103b1%3A0x9aa0e0844d2f4089!2sVinpearl%20Luxury%20Nha%20Trang!5e0!3m2!1sen!2s!4v1656518712694!5m2!1sen!2s" 
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQs -->
+                <div class="contact-map animated delay-2">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3899.481784258144!2d109.22574961482016!3d12.20985699133043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3170677e32588351%3A0xc02a74f38efe8146!2sVinpearl%20Resort%20Nha%20Trang!5e0!3m2!1sen!2s!4v1625723529123!5m2!1sen!2s" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     <section class="faq-section">
         <div class="container">
-            <h2><?php echo $language === 'vi' ? 'Câu hỏi thường gặp' : 'Frequently Asked Questions'; ?></h2>
+            <div class="section-header animated">
+                <h2><?php echo $language === 'vi' ? 'Câu hỏi thường gặp' : 'Frequently Asked Questions'; ?></h2>
+                <p><?php echo $language === 'vi' ? 'Một số câu hỏi phổ biến từ khách của chúng tôi' : 'Some common questions from our guests'; ?></p>
+            </div>
             
-            <div class="faq-items">
+            <div class="faq-items animated delay-1">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3><?php echo $language === 'vi' ? 'Làm thế nào để đến khu nghỉ dưỡng?' : 'How do I get to the resort?'; ?></h3>
-                        <span class="faq-toggle">+</span>
+                        <h3><?php echo $language === 'vi' ? 'Làm thế nào để đặt phòng?' : 'How can I make a reservation?'; ?></h3>
+                        <div class="icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <div class="faq-answer">
-                        <p><?php echo $language === 'vi' ? 'Vinpearl Resort Nha Trang nằm trên đảo Hòn Tre. Du khách có thể đến đảo bằng cáp treo hoặc tàu cao tốc từ cảng Nha Trang. Chúng tôi cũng cung cấp dịch vụ đưa đón từ sân bay Cam Ranh.' : 'Vinpearl Resort Nha Trang is located on Hon Tre Island. Guests can reach the island via cable car or speedboat from Nha Trang Port. We also offer airport transfers from Cam Ranh Airport.'; ?></p>
+                        <p><?php echo $language === 'vi' ? 'Bạn có thể đặt phòng trực tuyến thông qua trang web của chúng tôi, gọi điện thoại trực tiếp hoặc gửi email cho bộ phận đặt phòng của chúng tôi. Chúng tôi cũng chấp nhận đặt phòng thông qua các đại lý du lịch trực tuyến lớn.' : 'You can book a room online through our website, call us directly, or email our reservations department. We also accept bookings through major online travel agencies.'; ?></p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3><?php echo $language === 'vi' ? 'Giờ nhận phòng và trả phòng là mấy giờ?' : 'What are the check-in and check-out times?'; ?></h3>
-                        <span class="faq-toggle">+</span>
+                        <h3><?php echo $language === 'vi' ? 'Thời gian nhận phòng và trả phòng là khi nào?' : 'What are the check-in and check-out times?'; ?></h3>
+                        <div class="icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <div class="faq-answer">
-                        <p><?php echo $language === 'vi' ? 'Giờ nhận phòng là từ 14:00 và giờ trả phòng là trước 12:00 trưa.' : 'Check-in time is from 2:00 PM and check-out time is before 12:00 noon.'; ?></p>
+                        <p><?php echo $language === 'vi' ? 'Thời gian nhận phòng là 14:00 và thời gian trả phòng là 12:00 trưa. Nhận phòng sớm và trả phòng muộn có thể được sắp xếp tùy thuộc vào tình trạng sẵn có và có thể phát sinh phí bổ sung.' : 'Check-in time is 2:00 PM and check-out time is 12:00 noon. Early check-in and late check-out can be arranged depending on availability and may incur additional charges.'; ?></p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3><?php echo $language === 'vi' ? 'Khu nghỉ dưỡng có WiFi miễn phí không?' : 'Does the resort offer free WiFi?'; ?></h3>
-                        <span class="faq-toggle">+</span>
+                        <h3><?php echo $language === 'vi' ? 'Khu nghỉ dưỡng có cung cấp dịch vụ đưa đón sân bay không?' : 'Does the resort offer airport transfers?'; ?></h3>
+                        <div class="icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <div class="faq-answer">
-                        <p><?php echo $language === 'vi' ? 'Có, chúng tôi cung cấp WiFi miễn phí trong tất cả các phòng và khu vực công cộng của khu nghỉ dưỡng.' : 'Yes, we provide complimentary WiFi in all rooms and public areas of the resort.'; ?></p>
+                        <p><?php echo $language === 'vi' ? 'Có, chúng tôi cung cấp dịch vụ đưa đón sân bay với một khoản phí bổ sung. Vui lòng thông báo trước cho chúng tôi về thông tin chuyến bay của bạn ít nhất 24 giờ trước khi đến.' : 'Yes, we offer airport transfers for an additional fee. Please notify us in advance with your flight details at least 24 hours prior to arrival.'; ?></p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3><?php echo $language === 'vi' ? 'Trẻ em có được tính phí không?' : 'Are children charged?'; ?></h3>
+                        <div class="icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><?php echo $language === 'vi' ? 'Trẻ em dưới 5 tuổi được ở miễn phí khi dùng chung giường với người lớn. Trẻ em từ 6-11 tuổi sẽ được tính phí ở mức giảm giá. Trẻ em từ 12 tuổi trở lên được tính như người lớn.' : 'Children under 5 years old stay free when sharing a bed with adults. Children 6-11 years old will be charged at a discounted rate. Children 12 and older are charged as adults.'; ?></p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3><?php echo $language === 'vi' ? 'Khu nghỉ dưỡng có nhà hàng không?' : 'Does the resort have restaurants?'; ?></h3>
+                        <div class="icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><?php echo $language === 'vi' ? 'Có, khu nghỉ dưỡng của chúng tôi có nhiều nhà hàng phục vụ ẩm thực địa phương và quốc tế. Bạn có thể tìm thấy chi tiết về nhà hàng của chúng tôi trong phần Ẩm thực trên trang web.' : 'Yes, our resort has multiple restaurants serving local and international cuisine. You can find details about our restaurants in the Dining section of the website.'; ?></p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
                         <h3><?php echo $language === 'vi' ? 'Khu nghỉ dưỡng có hồ bơi không?' : 'Does the resort have swimming pools?'; ?></h3>
-                        <span class="faq-toggle">+</span>
+                        <div class="icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <div class="faq-answer">
                         <p><?php echo $language === 'vi' ? 'Có, khu nghỉ dưỡng có hồ bơi vô cực nhìn ra biển và một số hồ bơi khác rải rác khắp khu vực. Một số biệt thự còn có hồ bơi riêng.' : 'Yes, the resort features an infinity pool overlooking the ocean and several other pools scattered throughout the property. Some villas also have private pools.'; ?></p>
@@ -286,6 +320,31 @@ $pageTitle = $language === 'vi' ? 'Liên Hệ' : 'Contact Us';
                         <p><?php echo $language === 'vi' ? 'Có, chúng tôi cung cấp dịch vụ đưa đón sân bay có phụ phí. Vui lòng liên hệ với chúng tôi trước ít nhất 24 giờ để sắp xếp.' : 'Yes, we provide airport transfer services for an additional fee. Please contact us at least 24 hours in advance to arrange this service.'; ?></p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2 class="animated"><?php echo $language === 'vi' ? 'Hãy trải nghiệm kỳ nghỉ đáng nhớ tại Vinpearl' : 'Experience an Unforgettable Stay at Vinpearl'; ?></h2>
+            <p class="animated delay-1"><?php echo $language === 'vi' ? 'Khám phá vẻ đẹp của Nha Trang và đắm mình trong sự sang trọng tại khu nghỉ dưỡng đẳng cấp của chúng tôi' : 'Discover the beauty of Nha Trang and immerse yourself in luxury at our premium resort'; ?></p>
+            
+            <a href="rooms.php" class="btn btn-lg animated delay-2"><?php echo $language === 'vi' ? 'Đặt phòng ngay' : 'Book Your Stay Now'; ?></a>
+            
+            <div class="contact-social animated delay-3">
+                <a href="#" aria-label="Facebook">
+                    <img src="https://cdn-icons-png.flaticon.com/512/145/145802.png" alt="Facebook">
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <img src="https://cdn-icons-png.flaticon.com/512/145/145812.png" alt="Twitter">
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174883.png" alt="YouTube">
+                </a>
             </div>
         </div>
     </section>
@@ -355,5 +414,7 @@ $pageTitle = $language === 'vi' ? 'Liên Hệ' : 'Contact Us';
             });
         });
     </script>
+    <!-- JavaScript -->
+    <script src="assets/js/contact.js"></script>
 </body>
 </html> 

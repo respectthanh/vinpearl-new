@@ -43,6 +43,9 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/nearby-styles.css">
+    <!-- Add AOS animation library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <!-- Header -->
@@ -61,7 +64,6 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                     <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
                     <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
                     <li><a href="nearby.php" class="active"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                    <li><a href="contact.php"><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></a></li>
                 </ul>
             </nav>
             
@@ -93,18 +95,18 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
         </div>
     </header>
 
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="container">
+    <!-- Hero Banner -->
+    <section class="nearby-hero">
+        <div class="nearby-hero-content">
             <h1><?php echo $pageTitle; ?></h1>
-            <p><?php echo $language === 'vi' ? 'Khám phá những điểm đến thú vị xung quanh khu nghỉ dưỡng của chúng tôi' : 'Discover interesting places to visit around our resort'; ?></p>
+            <p><?php echo $language === 'vi' ? 'Khám phá những điểm đến thú vị, điểm tham quan hấp dẫn, nhà hàng nổi tiếng xung quanh Vinpearl Nha Trang' : 'Explore fascinating destinations, attractions, and renowned restaurants around Vinpearl Nha Trang'; ?></p>
         </div>
-    </div>
+    </section>
 
     <!-- Category Filter -->
     <section class="category-filter">
         <div class="container">
-            <div class="filter-tabs">
+            <div class="filter-tabs" data-aos="fade-up" data-aos-duration="800">
                 <a href="nearby.php?lang=<?php echo $language; ?>" class="filter-tab <?php echo empty($category) ? 'active' : ''; ?>">
                     <?php echo $language === 'vi' ? 'Tất cả' : 'All'; ?>
                 </a>
@@ -132,6 +134,11 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
     <!-- Nearby Places List -->
     <section class="nearby-list">
         <div class="container">
+            <div class="nearby-header">
+                <h2><?php echo $language === 'vi' ? 'Khám phá địa điểm lân cận' : 'Explore Nearby Attractions'; ?></h2>
+                <p><?php echo $language === 'vi' ? 'Trải nghiệm tốt nhất tại Nha Trang với những địa điểm tuyệt vời xung quanh khu nghỉ dưỡng của chúng tôi' : 'Experience the best of Nha Trang with amazing places around our resort'; ?></p>
+            </div>
+            
             <?php if (empty($places)): ?>
                 <div class="no-results">
                     <h2><?php echo $language === 'vi' ? 'Không có địa điểm nào được tìm thấy' : 'No places found'; ?></h2>
@@ -139,40 +146,73 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                 </div>
             <?php else: ?>
                 <div class="place-cards">
-                    <?php foreach ($places as $place): ?>
+                    <?php 
+                    // Direct images for each category
+                    $categoryImages = [
+                        'attraction' => 'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                        'restaurant' => 'https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                        'cafe' => 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                        'shopping' => 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80'
+                    ];
+                    
+                    foreach ($places as $index => $place): ?>
                         <div class="place-card">
+                            <?php
+                            $categoryClass = '';
+                            $categoryLabel = '';
+                            
+                            switch ($place['category']) {
+                                case 'attraction':
+                                    $categoryClass = 'category-attraction';
+                                    $categoryLabel = $language === 'vi' ? 'Điểm tham quan' : 'Attraction';
+                                    break;
+                                case 'restaurant':
+                                    $categoryClass = 'category-restaurant';
+                                    $categoryLabel = $language === 'vi' ? 'Nhà hàng' : 'Restaurant';
+                                    break;
+                                case 'shopping':
+                                    $categoryClass = 'category-shopping';
+                                    $categoryLabel = $language === 'vi' ? 'Mua sắm' : 'Shopping';
+                                    break;
+                                case 'cafe':
+                                    $categoryClass = 'category-cafe';
+                                    $categoryLabel = $language === 'vi' ? 'Quán cà phê' : 'Cafe';
+                                    break;
+                                default:
+                                    $categoryClass = '';
+                                    $categoryLabel = ucfirst($place['category']);
+                            }
+                            ?>
                             <div class="place-image">
-                                <img src="<?php echo htmlspecialchars($place['image_url']); ?>" alt="<?php echo htmlspecialchars($place[$language === 'vi' ? 'name_vi' : 'name_en']); ?>">
                                 <?php
-                                $categoryClass = '';
-                                $categoryLabel = '';
+                                // Use direct category images from internet
+                                $imageUrl = isset($categoryImages[$place['category']]) ? 
+                                    $categoryImages[$place['category']] : 
+                                    'https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
                                 
-                                switch ($place['category']) {
-                                    case 'attraction':
-                                        $categoryClass = 'category-attraction';
-                                        $categoryLabel = $language === 'vi' ? 'Điểm tham quan' : 'Attraction';
-                                        break;
-                                    case 'restaurant':
-                                        $categoryClass = 'category-restaurant';
-                                        $categoryLabel = $language === 'vi' ? 'Nhà hàng' : 'Restaurant';
-                                        break;
-                                    case 'shopping':
-                                        $categoryClass = 'category-shopping';
-                                        $categoryLabel = $language === 'vi' ? 'Mua sắm' : 'Shopping';
-                                        break;
-                                    case 'cafe':
-                                        $categoryClass = 'category-cafe';
-                                        $categoryLabel = $language === 'vi' ? 'Quán cà phê' : 'Cafe';
-                                        break;
-                                    default:
-                                        $categoryClass = '';
-                                        $categoryLabel = ucfirst($place['category']);
+                                // Create link to website if available, otherwise make it a div
+                                if (!empty($place['website'])) {
+                                    echo '<a href="' . htmlspecialchars($place['website']) . '" target="_blank" class="place-image-link">';
                                 }
                                 ?>
+                                <img src="<?php echo htmlspecialchars($imageUrl); ?>" alt="<?php echo htmlspecialchars($place[$language === 'vi' ? 'name_vi' : 'name_en']); ?>">
                                 <span class="place-category <?php echo $categoryClass; ?>"><?php echo $categoryLabel; ?></span>
+                                <?php
+                                if (!empty($place['website'])) {
+                                    echo '</a>';
+                                }
+                                ?>
                             </div>
                             <div class="place-details">
-                                <h3><?php echo htmlspecialchars($place[$language === 'vi' ? 'name_vi' : 'name_en']); ?></h3>
+                                <h3>
+                                    <?php if (!empty($place['website'])): ?>
+                                        <a href="<?php echo htmlspecialchars($place['website']); ?>" target="_blank" class="place-title-link">
+                                            <?php echo htmlspecialchars($place[$language === 'vi' ? 'name_vi' : 'name_en']); ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <?php echo htmlspecialchars($place[$language === 'vi' ? 'name_vi' : 'name_en']); ?>
+                                    <?php endif; ?>
+                                </h3>
                                 <p class="place-description"><?php echo htmlspecialchars($place[$language === 'vi' ? 'description_vi' : 'description_en']); ?></p>
                                 <div class="place-info">
                                     <div class="info-item">
@@ -201,11 +241,23 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                                             <span><?php echo str_repeat('$', strlen($place['price_level'])); ?></span>
                                         </div>
                                     <?php endif; ?>
+                                    <?php if (!empty($place['website'])): ?>
+                                        <div class="info-item">
+                                            <i class="icon-website"></i>
+                                            <a href="<?php echo htmlspecialchars($place['website']); ?>" target="_blank"><?php echo $language === 'vi' ? 'Trang web' : 'Website'; ?></a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="place-actions">
-                                    <?php if (!empty($place['website_url'])): ?>
-                                        <a href="<?php echo htmlspecialchars($place['website_url']); ?>" class="btn btn-sm" target="_blank">
+                                    <?php if (!empty($place['website'])): ?>
+                                        <a href="<?php echo htmlspecialchars($place['website']); ?>" class="btn btn-sm" target="_blank">
                                             <?php echo $language === 'vi' ? 'Trang web' : 'Website'; ?>
+                                        </a>
+                                    <?php endif; ?>
+                                    
+                                    <?php if (!empty($place['address'])): ?>
+                                        <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($place['address']); ?>" class="btn btn-sm btn-outline" target="_blank">
+                                            <?php echo $language === 'vi' ? 'Xem trên bản đồ' : 'View on Map'; ?>
                                         </a>
                                     <?php endif; ?>
                                     
@@ -226,10 +278,14 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
     <!-- Map Section -->
     <section class="map-section">
         <div class="container">
-            <h2><?php echo $language === 'vi' ? 'Vị trí trên bản đồ' : 'Map Location'; ?></h2>
+            <h2><?php echo $language === 'vi' ? 'Vị trí trên bản đồ' : 'Location Map'; ?></h2>
             <div class="map-container">
+                <div class="map-overlay">
+                    <h3><?php echo $language === 'vi' ? 'Khu vực Vinpearl Nha Trang' : 'Vinpearl Nha Trang Area'; ?></h3>
+                    <p><?php echo $language === 'vi' ? 'Khám phá những địa điểm thú vị xung quanh khu nghỉ' : 'Explore interesting places around the resort'; ?></p>
+                </div>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3898.740916176312!2d109.21988495223439!3d12.264967685683095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31706700a58103b1%3A0x9aa0e0844d2f4089!2sVinpearl%20Luxury%20Nha%20Trang!5e0!3m2!1sen!2s!4v1656518712694!5m2!1sen!2s" 
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
+                        width="100%" height="500" style="border:0; border-radius: var(--border-radius-lg);" allowfullscreen="" loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
@@ -242,7 +298,7 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
             <div class="tips-grid">
                 <div class="tip-item">
                     <div class="tip-icon">
-                        <img src="assets/images/icons/taxi.svg" alt="Taxi">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2087/2087422.png" alt="Taxi">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Taxi' : 'Taxi'; ?></h3>
                     <p><?php echo $language === 'vi' ? 'Có sẵn tại lễ tân hoặc gọi trực tiếp. Chi phí khoảng 10,000đ - 15,000đ/km.' : 'Available at reception or by direct call. Cost approximately 10,000đ - 15,000đ/km.'; ?></p>
@@ -250,7 +306,7 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                 
                 <div class="tip-item">
                     <div class="tip-icon">
-                        <img src="assets/images/icons/shuttle.svg" alt="Shuttle">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3097/3097180.png" alt="Shuttle">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Xe đưa đón' : 'Shuttle Service'; ?></h3>
                     <p><?php echo $language === 'vi' ? 'Khu nghỉ cung cấp dịch vụ xe đưa đón miễn phí đến trung tâm thành phố theo lịch trình.' : 'The resort provides complimentary scheduled shuttle service to the city center.'; ?></p>
@@ -258,7 +314,7 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                 
                 <div class="tip-item">
                     <div class="tip-icon">
-                        <img src="assets/images/icons/motorbike.svg" alt="Motorbike">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1986/1986937.png" alt="Motorbike">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Thuê xe máy' : 'Motorbike Rental'; ?></h3>
                     <p><?php echo $language === 'vi' ? 'Có thể thuê xe máy với giá khoảng 150,000đ - 200,000đ/ngày. Yêu cầu bằng lái xe quốc tế.' : 'Motorbikes can be rented for approximately 150,000đ - 200,000đ/day. International driving license required.'; ?></p>
@@ -266,7 +322,7 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                 
                 <div class="tip-item">
                     <div class="tip-icon">
-                        <img src="assets/images/icons/car.svg" alt="Car">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3097/3097136.png" alt="Car">
                     </div>
                     <h3><?php echo $language === 'vi' ? 'Thuê xe hơi' : 'Car Rental'; ?></h3>
                     <p><?php echo $language === 'vi' ? 'Dịch vụ thuê xe có hoặc không có tài xế. Đặt trước với lễ tân để được giá tốt nhất.' : 'Car rental services with or without driver available. Book in advance at reception for best rates.'; ?></p>
@@ -300,8 +356,7 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
                         <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
                         <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
                         <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                        <li><a href="contact.php"><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></a></li>
-                    </ul>
+                        </ul>
                 </div>
                 
                 <div class="footer-column">
@@ -322,4 +377,4 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
 
     <script src="assets/js/script.js"></script>
 </body>
-</html> 
+</html>

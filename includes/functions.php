@@ -161,6 +161,109 @@ function getTours($lang = DEFAULT_LANGUAGE) {
 }
 
 /**
+ * Get tour by ID
+ * 
+ * @param int    $tourId Tour ID
+ * @param string $lang   Language code ('en' or 'vi')
+ * 
+ * @return array|boolean Tour data if found, false otherwise
+ */
+function getTourById($tourId, $lang = DEFAULT_LANGUAGE) {
+    $conn = connectDatabase();
+    if (!$conn) {
+        return false;
+    }
+    
+    $stmt = $conn->prepare("SELECT * FROM tours WHERE id = ?");
+    $stmt->bind_param("i", $tourId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 0) {
+        return false;
+    }
+    
+    return $result->fetch_assoc();
+}
+
+/**
+ * Create a tour booking
+ * 
+ * @param array $bookingData Booking data
+ * 
+ * @return int|boolean Booking ID if successful, false if failed
+ */
+function createTourBooking($bookingData) {
+    $conn = connectDatabase();
+    if (!$conn) {
+        return false;
+    }
+    
+    $stmt = $conn->prepare("INSERT INTO tour_bookings (user_id, tour_id, tour_date, guests, total_price, status) 
+                          VALUES (?, ?, ?, ?, ?, 'pending')");
+    
+    $stmt->bind_param(
+        "iisid",
+        $bookingData['user_id'],
+        $bookingData['tour_id'],
+        $bookingData['tour_date'],
+        $bookingData['guests'],
+        $bookingData['total_price']
+    );
+    
+    if ($stmt->execute()) {
+        return $stmt->insert_id;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Check tour availability for the given date
+ *
+ * @param int    $tourId    Tour ID
+ * @param string $tourDate  Tour date (Y-m-d format)
+ * @param int    $guestCount Number of guests to check
+ *
+ * @return boolean True if tour is available, false otherwise
+ */
+function isTourAvailable($tourId, $tourDate, $guestCount = 1) {
+    $conn = connectDatabase();
+    if (!$conn) {
+        return false;
+    }
+    
+    // First, check if the tour exists and get max capacity
+    $tourStmt = $conn->prepare("SELECT id, max_people FROM tours WHERE id = ?");
+    $tourStmt->bind_param("i", $tourId);
+    $tourStmt->execute();
+    $tourResult = $tourStmt->get_result();
+    
+    if ($tourResult->num_rows === 0) {
+        return false;
+    }
+    
+    $tourData = $tourResult->fetch_assoc();
+    $maxPeople = $tourData['max_people'];
+    
+    // Next, check how many guests are already booked for this date
+    $bookingStmt = $conn->prepare("SELECT SUM(guests) AS total_guests 
+                                  FROM tour_bookings 
+                                  WHERE tour_id = ? 
+                                  AND tour_date = ? 
+                                  AND status != 'cancelled'");
+    $bookingStmt->bind_param("is", $tourId, $tourDate);
+    $bookingStmt->execute();
+    $bookingResult = $bookingStmt->get_result();
+    $bookingData = $bookingResult->fetch_assoc();
+    
+    $currentGuests = $bookingData['total_guests'] ?? 0;
+    
+    // Check if adding the new guests would exceed max capacity
+    return ($currentGuests + $guestCount <= $maxPeople);
+}
+
+/**
  * Get nearby places
  * 
  * @param string $category Category filter (optional)
@@ -375,4 +478,4 @@ function calculateBookingDuration($checkInDate, $checkOutDate) {
     $interval = $checkIn->diff($checkOut);
     
     return $interval->days;
-} 
+}

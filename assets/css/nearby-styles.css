@@ -1,0 +1,540 @@
+/* 
+ * Vinpearl Resort Nha Trang - Nearby Attractions Page Stylesheet
+ * Modern, responsive design aligned with Tours page style
+ */
+
+/* Hero Banner */
+.nearby-hero {
+  height: 60vh;
+  background-image: url('https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  margin-bottom: 0;
+}
+
+.nearby-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+  z-index: 1;
+}
+
+.nearby-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.nearby-hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: fadeInDown 1s ease;
+}
+
+.nearby-hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 1s ease;
+}
+
+/* Filter Bar */
+.category-filter {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-top: -50px;
+  position: relative;
+  z-index: 10;
+  box-shadow: var(--shadow-lg);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.filter-tab {
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background-color: var(--gray-light);
+  color: var(--text-color);
+  text-decoration: none;
+  text-align: center;
+  min-width: 100px;
+}
+
+.filter-tab:hover {
+  background-color: rgba(13, 110, 110, 0.1);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.filter-tab.active {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+/* Tours Header */
+.nearby-list {
+  padding: 50px 0;
+  background-color: var(--white);
+}
+
+.nearby-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.nearby-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.nearby-header h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: var(--primary-color);
+  margin: 15px auto 0;
+}
+
+.nearby-header p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+/* Places Grid */
+.place-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+/* Place Card */
+.place-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.place-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.place-image {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.place-image-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.place-image-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+  z-index: 1;
+}
+
+.place-image-link:hover::after {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.place-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.place-card:hover .place-image img {
+  transform: scale(1.08);
+}
+
+.place-category {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 6px 12px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 500;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-attraction {
+  background-color: #e67e22;
+}
+
+.category-restaurant {
+  background-color: #2ecc71;
+}
+
+.category-shopping {
+  background-color: #3498db;
+}
+
+.category-cafe {
+  background-color: #9b59b6;
+}
+
+.place-details {
+  padding: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.place-details h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.place-title-link {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.place-title-link:hover {
+  color: var(--primary-color);
+}
+
+.place-description {
+  color: var(--text-light);
+  margin-bottom: 20px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.place-info {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-lighter);
+}
+
+.info-item i {
+  margin-right: 8px;
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+.place-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.place-actions a {
+  flex-grow: 1;
+  text-align: center;
+  min-width: 110px;
+  transition: all 0.3s ease;
+}
+
+.place-actions a:hover {
+  transform: translateY(-3px);
+}
+
+/* Modern icons for info items */
+.icon-location::before {
+  content: "📍";
+}
+
+.icon-distance::before {
+  content: "🚗";
+}
+
+.icon-phone::before {
+  content: "📞";
+}
+
+.icon-clock::before {
+  content: "🕒";
+}
+
+.icon-price::before {
+  content: "💰";
+}
+
+.icon-website::before {
+  content: "🌐";
+}
+
+/* Map Section */
+.map-section {
+  padding: 60px 0;
+  background-color: var(--gray-light);
+}
+
+.map-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.map-container {
+  height: 500px;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 300px;
+  z-index: 1;
+}
+
+.map-overlay h3 {
+  margin-bottom: 10px;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.map-overlay p {
+  font-size: 14px;
+  margin-bottom: 0;
+  color: var(--text-light);
+}
+
+/* No Results Section */
+.no-results {
+  text-align: center;
+  padding: 60px 0;
+  background-color: var(--gray-light);
+  border-radius: var(--border-radius);
+}
+
+.no-results h2 {
+  margin-bottom: 15px;
+  color: var(--text-color);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.no-results p {
+  color: var(--text-light);
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+/* Transportation Tips Section */
+.transportation-tips {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.transportation-tips h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: var(--text-color);
+  position: relative;
+}
+
+.transportation-tips h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: var(--primary-color);
+  margin: 15px auto 0;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.tip-item {
+  background-color: var(--gray-light);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tip-item:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+}
+
+.tip-icon {
+  margin-bottom: 20px;
+}
+
+.tip-icon img {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.tip-item h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.tip-item p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design adjustments */
+@media (max-width: 992px) {
+  .nearby-hero h1 {
+    font-size: 2.8rem;
+  }
+  
+  .place-cards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .map-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nearby-hero {
+    height: 50vh;
+    min-height: 400px;
+  }
+  
+  .nearby-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .nearby-hero p {
+    font-size: 1.2rem;
+  }
+  
+  .place-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .filter-tabs {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+  }
+  
+  .filter-tab {
+    flex-shrink: 0;
+  }
+  
+  .map-overlay {
+    top: 15px;
+    left: 15px;
+    max-width: 250px;
+  }
+}

@@ -55,7 +55,6 @@ $currentUser = getCurrentUser();
                     <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
                     <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
                     <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                    <li><a href="contact.php"><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></a></li>
                 </ul>
             </nav>
             
@@ -190,7 +189,6 @@ $currentUser = getCurrentUser();
                             </div>
                         </div>
                         
-                        <a href="contact.php" class="btn btn-primary mt-4">
                             <?php echo $language === 'vi' ? 'Liên hệ với chúng tôi' : 'Contact Us'; ?> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -450,7 +448,6 @@ $currentUser = getCurrentUser();
                 <p><?php echo $language === 'vi' ? 'Trải nghiệm dịch vụ đẳng cấp thế giới và khung cảnh tuyệt đẹp tại Vinpearl Resort Nha Trang' : 'Experience world-class service and breathtaking views at Vinpearl Resort Nha Trang'; ?></p>
                 <div class="cta-buttons">
                     <a href="rooms.php" class="btn btn-primary btn-lg"><?php echo $language === 'vi' ? 'Đặt ngay' : 'Book Now'; ?></a>
-                    <a href="contact.php" class="btn btn-outline-light btn-lg"><?php echo $language === 'vi' ? 'Liên hệ chúng tôi' : 'Contact Us'; ?></a>
                 </div>
             </div>
         </div>
@@ -485,8 +482,7 @@ $currentUser = getCurrentUser();
                                 <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
                                 <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
                                 <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                                <li><a href="contact.php"><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></a></li>
-                            </ul>
+                                        </ul>
                         </div>
                     </div>
                     
