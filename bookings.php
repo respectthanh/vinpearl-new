@@ -117,6 +117,7 @@ if ($conn) {
     }
 }
 
+
 // Sort all bookings by created_at in descending order
 usort($all_bookings, function($a, $b) {
     return strtotime($b['created_at']) - strtotime($a['created_at']);
@@ -139,6 +140,8 @@ $typeLabels = [
     'package' => $language === 'vi' ? 'Gói dịch vụ' : 'Package',
     'tour' => $language === 'vi' ? 'Tour' : 'Tour'
 ];
+
+include 'includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -151,48 +154,6 @@ $typeLabels = [
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <div class="logo">
-                <a href="index.php">
-                    <img src="assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
-                </a>
-            </div>
-            
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.php"><?php echo $language === 'vi' ? 'Trang chủ' : 'Home'; ?></a></li>
-                    <li><a href="rooms.php"><?php echo $language === 'vi' ? 'Phòng' : 'Rooms'; ?></a></li>
-                    <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
-                    <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
-                    <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <div class="language-selector">
-                    <a href="?<?php echo !empty($_GET['status']) ? 'status=' . urlencode($_GET['status']) . '&' : ''; ?><?php echo !empty($_GET['type']) ? 'type=' . urlencode($_GET['type']) . '&' : ''; ?>lang=en" <?php echo $language === 'en' ? 'class="active"' : ''; ?>>EN</a> |
-                    <a href="?<?php echo !empty($_GET['status']) ? 'status=' . urlencode($_GET['status']) . '&' : ''; ?><?php echo !empty($_GET['type']) ? 'type=' . urlencode($_GET['type']) . '&' : ''; ?>lang=vi" <?php echo $language === 'vi' ? 'class="active"' : ''; ?>>VI</a>
-                </div>
-                
-                <div class="user-actions">
-                    <div class="user-menu">
-                        <span>Hello, <?php echo htmlspecialchars($currentUser['full_name']); ?></span>
-                        <div class="dropdown-menu">
-                            <a href="profile.php"><?php echo $language === 'vi' ? 'Hồ sơ' : 'Profile'; ?></a>
-                            <a href="bookings.php" class="active"><?php echo $language === 'vi' ? 'Đặt chỗ' : 'My Bookings'; ?></a>
-                            <?php if (isAdmin()): ?>
-                                <a href="admin/index.php"><?php echo $language === 'vi' ? 'Quản trị' : 'Admin Panel'; ?></a>
-                            <?php endif; ?>
-                            <a href="logout.php"><?php echo $language === 'vi' ? 'Đăng xuất' : 'Logout'; ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <!-- Page Header -->
     <div class="page-header bookings-header">
         <div class="container">
@@ -390,54 +351,11 @@ $typeLabels = [
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-columns">
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Về chúng tôi' : 'About Us'; ?></h3>
-                    <p><?php echo $language === 'vi' ? 'Vinpearl Resort Nha Trang là khu nghỉ dưỡng sang trọng với tầm nhìn tuyệt đẹp ra biển.' : 'Vinpearl Resort Nha Trang is a luxury resort with stunning ocean views.'; ?></p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></h3>
-                    <address>
-                        <p><?php echo $language === 'vi' ? 'Địa chỉ:' : 'Address:'; ?> Vinpearl Resort Nha Trang, Đảo Hòn Tre, Nha Trang, Việt Nam</p>
-                        <p><?php echo $language === 'vi' ? 'Điện thoại:' : 'Phone:'; ?> +84 258 598 9999</p>
-                        <p>Email: info@vinpearl.com</p>
-                    </address>
-                </div>
-                
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Liên kết nhanh' : 'Quick Links'; ?></h3>
-                    <ul>
-                        <li><a href="rooms.php"><?php echo $language === 'vi' ? 'Phòng' : 'Rooms'; ?></a></li>
-                        <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
-                        <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
-                        <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                        </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Kết nối' : 'Connect'; ?></h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><img src="assets/images/icons/facebook.svg" alt="Facebook"></a>
-                        <a href="#" class="social-link"><img src="assets/images/icons/instagram.svg" alt="Instagram"></a>
-                        <a href="#" class="social-link"><img src="assets/images/icons/twitter.svg" alt="Twitter"></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; <?php echo date('Y'); ?> Vinpearl Resort Nha Trang. <?php echo $language === 'vi' ? 'Đã đăng ký bản quyền.' : 'All rights reserved.'; ?></p>
-            </div>
-        </div>
-    </footer>
-
     <script src="assets/js/bookings.js"></script>
 </body>
 </html>
 
+<?php include 'includes/footer.php'; ?>
 <?php
 /**
  * Helper function to check if a user has reviewed an item
