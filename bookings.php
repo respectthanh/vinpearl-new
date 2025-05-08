@@ -232,41 +232,23 @@ $typeLabels = [
                 </div>
                 <div class="filter-group">
                     <span class="filter-label"><i class="fas fa-filter"></i> <?php echo $language === 'vi' ? 'Loại:' : 'Type:'; ?></span>
-                    <div class="filter-options">
-                        <a href="?<?php echo !empty($_GET['status']) ? 'status=' . urlencode($_GET['status']) . '&' : ''; ?><?php echo $language === 'vi' ? 'lang=vi' : ''; ?>" class="filter-btn <?php echo empty($type_filter) ? 'active' : ''; ?>">
-                            <?php echo $language === 'vi' ? 'Tất cả' : 'All'; ?>
-                        </a>
-                        <a href="?type=room<?php echo !empty($_GET['status']) ? '&status=' . urlencode($_GET['status']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $type_filter === 'room' ? 'active' : ''; ?>">
-                            <?php echo $typeLabels['room']; ?>
-                        </a>
-                        <a href="?type=package<?php echo !empty($_GET['status']) ? '&status=' . urlencode($_GET['status']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $type_filter === 'package' ? 'active' : ''; ?>">
-                            <?php echo $typeLabels['package']; ?>
-                        </a>
-                        <a href="?type=tour<?php echo !empty($_GET['status']) ? '&status=' . urlencode($_GET['status']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $type_filter === 'tour' ? 'active' : ''; ?>">
-                            <?php echo $typeLabels['tour']; ?>
-                        </a>
-                    </div>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="" <?php echo empty($type_filter) ? 'selected' : ''; ?>><?php echo $language === 'vi' ? 'Tất cả' : 'All'; ?></option>
+                        <option value="room" <?php echo $type_filter === 'room' ? 'selected' : ''; ?>><?php echo $typeLabels['room']; ?></option>
+                        <option value="package" <?php echo $type_filter === 'package' ? 'selected' : ''; ?>><?php echo $typeLabels['package']; ?></option>
+                        <option value="tour" <?php echo $type_filter === 'tour' ? 'selected' : ''; ?>><?php echo $typeLabels['tour']; ?></option>
+                    </select>
                 </div>
-                
+
                 <div class="filter-group">
-                    <span class="filter-label"><?php echo $language === 'vi' ? 'Trạng thái:' : 'Status:'; ?></span>
-                    <div class="filter-options">
-                        <a href="?<?php echo !empty($_GET['type']) ? 'type=' . urlencode($_GET['type']) . '&' : ''; ?><?php echo $language === 'vi' ? 'lang=vi' : ''; ?>" class="filter-btn <?php echo empty($status_filter) ? 'active' : ''; ?>">
-                            <?php echo $language === 'vi' ? 'Tất cả' : 'All'; ?>
-                        </a>
-                        <a href="?status=pending<?php echo !empty($_GET['type']) ? '&type=' . urlencode($_GET['type']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $status_filter === 'pending' ? 'active' : ''; ?>">
-                            <?php echo $statusLabels['pending']; ?>
-                        </a>
-                        <a href="?status=confirmed<?php echo !empty($_GET['type']) ? '&type=' . urlencode($_GET['type']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $status_filter === 'confirmed' ? 'active' : ''; ?>">
-                            <?php echo $statusLabels['confirmed']; ?>
-                        </a>
-                        <a href="?status=completed<?php echo !empty($_GET['type']) ? '&type=' . urlencode($_GET['type']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $status_filter === 'completed' ? 'active' : ''; ?>">
-                            <?php echo $statusLabels['completed']; ?>
-                        </a>
-                        <a href="?status=cancelled<?php echo !empty($_GET['type']) ? '&type=' . urlencode($_GET['type']) : ''; ?><?php echo $language === 'vi' ? '&lang=vi' : ''; ?>" class="filter-btn <?php echo $status_filter === 'cancelled' ? 'active' : ''; ?>">
-                            <?php echo $statusLabels['cancelled']; ?>
-                        </a>
-                    </div>
+                    <span class="filter-label"><i class="fas fa-chart-pie"></i> <?php echo $language === 'vi' ? 'Trạng thái:' : 'Status:'; ?></span>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="" <?php echo empty($status_filter) ? 'selected' : ''; ?>><?php echo $language === 'vi' ? 'Tất cả' : 'All'; ?></option>
+                        <option value="pending" <?php echo $status_filter === 'pending' ? 'selected' : ''; ?>><?php echo $statusLabels['pending']; ?></option>
+                        <option value="confirmed" <?php echo $status_filter === 'confirmed' ? 'selected' : ''; ?>><?php echo $statusLabels['confirmed']; ?></option>
+                        <option value="cancelled" <?php echo $status_filter === 'cancelled' ? 'selected' : ''; ?>><?php echo $statusLabels['cancelled']; ?></option>
+                        <option value="completed" <?php echo $status_filter === 'completed' ? 'selected' : ''; ?>><?php echo $statusLabels['completed']; ?></option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -305,8 +287,8 @@ $typeLabels = [
                                     <span class="booking-type-badge">
                                         <?php echo $typeLabels[$booking['booking_type']]; ?>
                                     </span>
-                                    <span class="booking-status status-<?php echo htmlspecialchars($booking['status']); ?>">
-                                        <?php echo $statusLabels[$booking['status']] ?? ucfirst($booking['status']); ?>
+                                    <span class="status-badge <?php echo $booking['status']; ?>">
+                                        <?php echo $statusLabels[$booking['status']]; ?>
                                     </span>
                                 </div>
                             </div>
@@ -315,82 +297,71 @@ $typeLabels = [
                                 <div class="booking-info">
                                     <?php if ($booking['booking_type'] === 'room'): ?>
                                         <div class="info-item">
-                                            <i class="icon-calendar"></i>
-                                            <span><?php echo $language === 'vi' ? 'Nhận phòng:' : 'Check-in:'; ?> <?php echo formatDate($booking['check_in_date'], 'M d, Y'); ?></span>
+                                            <i class="fas fa-calendar"></i>
+                                            <span>
+                                                <?php 
+                                                echo $language === 'vi' ? 'Check-in: ' : 'Check-in: ';
+                                                echo date('M d, Y', strtotime($booking['check_in_date']));
+                                                ?>
+                                            </span>
                                         </div>
                                         <div class="info-item">
-                                            <i class="icon-calendar"></i>
-                                            <span><?php echo $language === 'vi' ? 'Trả phòng:' : 'Check-out:'; ?> <?php echo formatDate($booking['check_out_date'], 'M d, Y'); ?></span>
+                                            <i class="fas fa-calendar-check"></i>
+                                            <span>
+                                                <?php 
+                                                echo $language === 'vi' ? 'Check-out: ' : 'Check-out: ';
+                                                echo date('M d, Y', strtotime($booking['check_out_date']));
+                                                ?>
+                                            </span>
                                         </div>
-                                    <?php elseif ($booking['booking_type'] === 'package'): ?>
+                                    <?php else: ?>
                                         <div class="info-item">
-                                            <i class="icon-calendar"></i>
-                                            <span><?php echo $language === 'vi' ? 'Ngày bắt đầu:' : 'Start date:'; ?> <?php echo formatDate($booking['start_date'], 'M d, Y'); ?></span>
-                                        </div>
-                                    <?php elseif ($booking['booking_type'] === 'tour'): ?>
-                                        <div class="info-item">
-                                            <i class="icon-calendar"></i>
-                                            <span><?php echo $language === 'vi' ? 'Ngày tham gia:' : 'Tour date:'; ?> <?php echo formatDate($booking['tour_date'], 'M d, Y'); ?></span>
+                                            <i class="fas fa-calendar"></i>
+                                            <span>
+                                                <?php 
+                                                echo $language === 'vi' ? 'Ngày: ' : 'Date: ';
+                                                echo date('M d, Y', strtotime($booking['tour_date'] ?? $booking['package_date']));
+                                                ?>
+                                            </span>
                                         </div>
                                     <?php endif; ?>
-                                    
                                     <div class="info-item">
-                                        <i class="icon-user"></i>
-                                        <span><?php echo $booking['guests']; ?> <?php echo $language === 'vi' ? 'khách' : 'guests'; ?></span>
+                                        <i class="fas fa-users"></i>
+                                        <span>
+                                            <?php 
+                                            echo $language === 'vi' ? 'Số người: ' : 'Guests: ';
+                                            echo $booking['num_guests'];
+                                            ?>
+                                        </span>
                                     </div>
-                                    
                                     <div class="info-item">
-                                        <i class="icon-price"></i>
-                                        <span><?php echo formatCurrency($booking['total_price']); ?></span>
+                                        <i class="fas fa-clock"></i>
+                                        <span>
+                                            <?php 
+                                            echo $language === 'vi' ? 'Đặt lúc: ' : 'Booked on: ';
+                                            echo date('M d, Y', strtotime($booking['created_at']));
+                                            ?>
+                                        </span>
                                     </div>
-                                    
                                     <div class="info-item">
-                                        <i class="icon-date"></i>
-                                        <span><?php echo $language === 'vi' ? 'Đặt ngày:' : 'Booked on:'; ?> <?php echo formatDate($booking['created_at'], 'M d, Y'); ?></span>
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>
+                                            <?php 
+                                            echo $language === 'vi' ? 'Tổng tiền: ' : 'Total: ';
+                                            echo '$' . number_format($booking['total_amount'], 2);
+                                            ?>
+                                        </span>
                                     </div>
                                 </div>
-                                
                                 <div class="booking-actions">
                                     <?php if ($booking['status'] === 'pending' || $booking['status'] === 'confirmed'): ?>
                                         <a href="#" class="btn btn-sm btn-outline cancel-booking" data-type="<?php echo $booking['booking_type']; ?>" data-id="<?php echo $booking['booking_type'] === 'room' ? $booking['room_booking_id'] : ($booking['booking_type'] === 'package' ? $booking['package_booking_id'] : $booking['tour_booking_id']); ?>">
                                             <?php echo $language === 'vi' ? 'Hủy đặt chỗ' : 'Cancel Booking'; ?>
                                         </a>
                                     <?php endif; ?>
-                                    
-                                    <?php 
-                                    // Define item ID based on booking type
-                                    $itemId = 0;
-                                    $itemType = '';
-                                    
-                                    if ($booking['booking_type'] === 'room') {
-                                        $itemId = $booking['room_id'];
-                                        $itemType = 'room';
-                                    } elseif ($booking['booking_type'] === 'package') {
-                                        $itemId = $booking['package_id'];
-                                        $itemType = 'package';
-                                    } elseif ($booking['booking_type'] === 'tour') {
-                                        $itemId = $booking['tour_id'];
-                                        $itemType = 'tour';
-                                    }
-                                    ?>
-                                    
-                                    <?php if ($booking['status'] === 'completed' && !hasReviewed($currentUser['id'], $itemType, $itemId)): ?>
-                                        <a href="write-review.php?type=<?php echo $itemType; ?>&id=<?php echo $itemId; ?>" class="btn btn-sm">
+                                    <?php if ($booking['status'] === 'completed' && !hasReviewed($currentUser['id'], $booking['booking_type'], $booking['booking_type'] === 'room' ? $booking['room_id'] : ($booking['booking_type'] === 'package' ? $booking['package_id'] : $booking['tour_id']))): ?>
+                                        <a href="review.php?type=<?php echo $booking['booking_type']; ?>&id=<?php echo $booking['booking_type'] === 'room' ? $booking['room_id'] : ($booking['booking_type'] === 'package' ? $booking['package_id'] : $booking['tour_id']); ?>" class="btn btn-sm btn-outline">
                                             <?php echo $language === 'vi' ? 'Viết đánh giá' : 'Write Review'; ?>
-                                        </a>
-                                    <?php endif; ?>
-                                    
-                                    <?php if ($booking['booking_type'] === 'room'): ?>
-                                        <a href="room-details.php?id=<?php echo $booking['room_id']; ?>" class="btn btn-sm">
-                                            <?php echo $language === 'vi' ? 'Xem chi tiết' : 'View Details'; ?>
-                                        </a>
-                                    <?php elseif ($booking['booking_type'] === 'package'): ?>
-                                        <a href="package-details.php?id=<?php echo $booking['package_id']; ?>" class="btn btn-sm">
-                                            <?php echo $language === 'vi' ? 'Xem chi tiết' : 'View Details'; ?>
-                                        </a>
-                                    <?php elseif ($booking['booking_type'] === 'tour'): ?>
-                                        <a href="tour-details.php?id=<?php echo $booking['tour_id']; ?>" class="btn btn-sm">
-                                            <?php echo $language === 'vi' ? 'Xem chi tiết' : 'View Details'; ?>
                                         </a>
                                     <?php endif; ?>
                                 </div>
@@ -409,20 +380,12 @@ $typeLabels = [
                 <h3><?php echo $language === 'vi' ? 'Xác nhận hủy đặt chỗ' : 'Confirm Cancellation'; ?></h3>
                 <button class="close-modal"><i class="fas fa-times"></i></button>
             </div>
-            <div class="modal-header">
-                <h2><?php echo $language === 'vi' ? 'Xác nhận hủy đặt chỗ' : 'Confirm Cancellation'; ?></h2>
-                <span class="close-modal">&times;</span>
-            </div>
             <div class="modal-body">
-                <p><?php echo $language === 'vi' ? 'Bạn có chắc chắn muốn hủy đặt chỗ này không? Hành động này không thể hoàn tác.' : 'Are you sure you want to cancel this booking? This action cannot be undone.'; ?></p>
+                <p><?php echo $language === 'vi' ? 'Bạn có chắc chắn muốn hủy đặt chỗ này? Hành động này không thể hoàn tác.' : 'Are you sure you want to cancel this booking? This action cannot be undone.'; ?></p>
             </div>
             <div class="modal-footer">
-                <form id="cancelBookingForm" method="post" action="cancel-booking.php">
-                    <input type="hidden" id="bookingType" name="booking_type" value="">
-                    <input type="hidden" id="bookingId" name="booking_id" value="">
-                    <button type="submit" class="btn btn-danger"><?php echo $language === 'vi' ? 'Hủy đặt chỗ' : 'Cancel Booking'; ?></button>
-                    <button type="button" class="btn btn-outline close-modal"><?php echo $language === 'vi' ? 'Không' : 'No'; ?></button>
-                </form>
+                <button class="btn btn-outline close-modal"><?php echo $language === 'vi' ? 'Đóng' : 'Close'; ?></button>
+                <button id="confirmCancel" class="btn btn-danger"><?php echo $language === 'vi' ? 'Xác nhận hủy' : 'Confirm Cancel'; ?></button>
             </div>
         </div>
     </div>
@@ -471,44 +434,6 @@ $typeLabels = [
         </div>
     </footer>
 
-    <script src="assets/js/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Modal functionality
-            const modal = document.getElementById('cancelBookingModal');
-            const cancelBtns = document.querySelectorAll('.cancel-booking');
-            const closeBtns = document.querySelectorAll('.close-modal');
-            const bookingTypeField = document.getElementById('bookingType');
-            const bookingIdField = document.getElementById('bookingId');
-            
-            // Open modal when cancel button is clicked
-            cancelBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const bookingType = this.getAttribute('data-type');
-                    const bookingId = this.getAttribute('data-id');
-                    
-                    bookingTypeField.value = bookingType;
-                    bookingIdField.value = bookingId;
-                    
-                    modal.style.display = 'block';
-                });
-            });
-            
-            // Close modal when close button or outside click
-            closeBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    modal.style.display = 'none';
-                });
-            });
-            
-            window.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-    </script>
     <script src="assets/js/bookings.js"></script>
 </body>
 </html>

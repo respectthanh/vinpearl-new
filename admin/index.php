@@ -93,6 +93,9 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo generatePageTitle($pageTitle, $language); ?></title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="admin-page">
     <div class="admin-layout">
@@ -109,38 +112,38 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
                 <ul>
                     <li>
                         <a href="index.php" class="active">
-                            <i class="icon-dashboard"></i>
-                            <?php echo $language === 'vi' ? 'Bảng điều khiển' : 'Dashboard'; ?>
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span><?php echo $language === 'vi' ? 'Bảng điều khiển' : 'Dashboard'; ?></span>
                         </a>
                     </li>
                     <li>
                         <a href="content.php">
-                            <i class="icon-content"></i>
-                            <?php echo $language === 'vi' ? 'Quản lý nội dung' : 'Content Management'; ?>
+                            <i class="fas fa-file-alt"></i>
+                            <span><?php echo $language === 'vi' ? 'Quản lý nội dung' : 'Content Management'; ?></span>
                         </a>
                     </li>
                     <li>
                         <a href="bookings.php">
-                            <i class="icon-bookings"></i>
-                            <?php echo $language === 'vi' ? 'Quản lý đặt phòng' : 'Bookings Management'; ?>
+                            <i class="fas fa-calendar-check"></i>
+                            <span><?php echo $language === 'vi' ? 'Quản lý đặt phòng' : 'Bookings Management'; ?></span>
                         </a>
                     </li>
                     <li>
                         <a href="reviews.php">
-                            <i class="icon-reviews"></i>
-                            <?php echo $language === 'vi' ? 'Quản lý đánh giá' : 'Reviews Management'; ?>
+                            <i class="fas fa-star"></i>
+                            <span><?php echo $language === 'vi' ? 'Quản lý đánh giá' : 'Reviews Management'; ?></span>
                         </a>
                     </li>
                     <li>
                         <a href="nearby.php">
-                            <i class="icon-nearby"></i>
-                            <?php echo $language === 'vi' ? 'Địa điểm gần đó' : 'Nearby Places'; ?>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span><?php echo $language === 'vi' ? 'Địa điểm gần đó' : 'Nearby Places'; ?></span>
                         </a>
                     </li>
                     <li>
                         <a href="users.php">
-                            <i class="icon-users"></i>
-                            <?php echo $language === 'vi' ? 'Quản lý người dùng' : 'Users Management'; ?>
+                            <i class="fas fa-users"></i>
+                            <span><?php echo $language === 'vi' ? 'Quản lý người dùng' : 'Users Management'; ?></span>
                         </a>
                     </li>
                 </ul>
@@ -176,7 +179,7 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
                 <div class="admin-stats">
                     <div class="admin-stat-card">
                         <div class="stat-icon">
-                            <i class="icon-occupancy"></i>
+                            <i class="fas fa-bed"></i>
                         </div>
                         <div class="stat-content">
                             <h3><?php echo $language === 'vi' ? 'Tỷ lệ lấp đầy' : 'Occupancy Rate'; ?></h3>
@@ -187,18 +190,18 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
                     
                     <div class="admin-stat-card">
                         <div class="stat-icon">
-                            <i class="icon-revenue"></i>
+                            <i class="fas fa-dollar-sign"></i>
                         </div>
                         <div class="stat-content">
                             <h3><?php echo $language === 'vi' ? 'Doanh thu' : 'Revenue'; ?></h3>
-                            <div class="stat-value"><?php echo formatCurrency($totalRevenue); ?></div>
+                            <div class="stat-value"><?php echo number_format($totalRevenue, 2); ?>$</div>
                             <div class="stat-period"><?php echo $language === 'vi' ? 'Tháng này' : 'This month'; ?></div>
                         </div>
                     </div>
                     
                     <div class="admin-stat-card">
                         <div class="stat-icon">
-                            <i class="icon-bookings"></i>
+                            <i class="fas fa-calendar-check"></i>
                         </div>
                         <div class="stat-content">
                             <h3><?php echo $language === 'vi' ? 'Đặt phòng' : 'Bookings'; ?></h3>
