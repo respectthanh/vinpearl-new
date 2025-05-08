@@ -122,6 +122,13 @@ $pageTitle = $language === 'vi' ? 'Tours & Hoạt Động' : 'Tours & Activities
 include 'includes/header.php';
 ?>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+    <link rel="stylesheet" href="assets/css/tours-styles.css">
+</head>
+
     <!-- Hero Banner -->
     <section class="tours-hero">
         <div class="tours-hero-content">

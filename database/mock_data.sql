@@ -22,36 +22,37 @@ INSERT INTO rooms (name_en, name_vi, description_en, description_vi, price_per_n
                 room_size, bed_type, amenities, image_url) 
                 VALUES ('Deluxe Ocean View', 'Phòng Deluxe Hướng Biển', 'Spacious room with breathtaking ocean views, modern amenities, and a private balcony.', 
                 'Phòng rộng rãi với tầm nhìn tuyệt đẹp ra biển, tiện nghi hiện đại và ban công riêng.', 150.0, 2, 
-                '40 m²', 'King', '["Air conditioning", "Flat-screen TV", "Free WiFi", "Minibar", "Safe"]', 'assets/images/rooms/deluxe-ocean.jpg');
+                '40 m²', 'King', '["Air conditioning", "Flat-screen TV", "Free WiFi", "Minibar", "Safe"]', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO rooms (name_en, name_vi, description_en, description_vi, price_per_night, capacity, 
                 room_size, bed_type, amenities, image_url) 
                 VALUES ('Premium Garden Suite', 'Phòng Suite Hướng Vườn', 'Elegant suite with garden views, separate living area, and exclusive amenities.', 
                 'Phòng suite sang trọng với tầm nhìn ra vườn, khu vực sinh hoạt riêng biệt và tiện nghi độc quyền.', 250.0, 2, 
-                '60 m²', 'King', '["Air conditioning", "Flat-screen TV", "Free WiFi", "Minibar", "Safe", "Bathtub", "Coffee machine"]', 'assets/images/rooms/premium-garden.jpg');
+                '60 m²', 'King', '["Air conditioning", "Flat-screen TV", "Free WiFi", "Minibar", "Safe", "Bathtub", "Coffee machine"]', 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO rooms (name_en, name_vi, description_en, description_vi, price_per_night, capacity, 
                 room_size, bed_type, amenities, image_url) 
                 VALUES ('Family Beach Villa', 'Biệt Thự Bãi Biển Gia Đình', 'Spacious villa perfect for families, with direct beach access and a private pool.', 
                 'Biệt thự rộng rãi hoàn hảo cho gia đình, với lối đi trực tiếp ra bãi biển và hồ bơi riêng.', 450.0, 4, 
-                '120 m²', '2 Kings', '["Air conditioning", "Flat-screen TV", "Free WiFi", "Minibar", "Safe", "Private pool", "Kitchen", "Dining area", "Beach access"]', 'assets/images/rooms/family-villa.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (1, 'assets/images/rooms/deluxe-ocean-1.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (1, 'assets/images/rooms/deluxe-ocean-2.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (1, 'assets/images/rooms/deluxe-ocean-3.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (2, 'assets/images/rooms/premium-garden-1.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (2, 'assets/images/rooms/premium-garden-2.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (2, 'assets/images/rooms/premium-garden-3.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (3, 'assets/images/rooms/family-villa-1.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (3, 'assets/images/rooms/family-villa-2.jpg');
-INSERT INTO room_images (room_id, image_url) VALUES (3, 'assets/images/rooms/family-villa-3.jpg');
+                '120 m²', '2 Kings', '["Air conditioning", "Flat-screen TV", "Free WiFi", "Minibar", "Safe", "Private pool", "Kitchen", "Dining area", "Beach access"]', 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (1, 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (1, 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (1, 'https://images.unsplash.com/photo-1521783988139-89397d761dce?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (2, 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (2, 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (2, 'https://images.unsplash.com/photo-1568495248636-6432b97bd949?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (3, 'https://images.unsplash.com/photo-1599619351208-3e6c839d6828?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (3, 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=1600&auto=format&fit=crop');
+INSERT INTO room_images (room_id, image_url) VALUES (3, 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=1600&auto=format&fit=crop');
 INSERT INTO packages (name_en, name_vi, description_en, description_vi, price, duration, 
                  includes_text_en, includes_text_vi, image_url) 
                  VALUES ('Romantic Getaway', 'Kỳ Nghỉ Lãng Mạn', 'Perfect package for couples looking for a romantic escape.', 
                  'Gói hoàn hảo cho các cặp đôi đang tìm kiếm một kỳ nghỉ lãng mạn.', 500.0, 3, 
-                 'Deluxe Ocean View Room, Daily breakfast, Couple\'s massage, Romantic dinner on beach', 'Phòng Deluxe Hướng Biển, Bữa sáng hàng ngày, Massage cho cặp đôi, Bữa tối lãng mạn trên bãi biển', 'assets/images/packages/romantic.jpg');
+                 'Deluxe Ocean View Room, Daily breakfast, Couple\'s massage, Romantic dinner on beach', 'Phòng Deluxe Hướng Biển, Bữa sáng hàng ngày, Massage cho cặp đôi, Bữa tối lãng mạn trên bãi biển', 'https://images.pexels.com/photos/6143369/pexels-photo-6143369.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
 INSERT INTO packages (name_en, name_vi, description_en, description_vi, price, duration, 
                  includes_text_en, includes_text_vi, image_url) 
                  VALUES ('Family Adventure', 'Phiêu Lưu Gia Đình', 'Fun-filled package for the whole family with activities for all ages.', 
                  'Gói đầy niềm vui cho cả gia đình với các hoạt động cho mọi lứa tuổi.', 800.0, 5, 
                  'Family Villa, Daily breakfast, Water park access, Dolphin show, Island tour', 'Biệt Thự Gia Đình, Bữa sáng hàng ngày, Vào công viên nước, Xem show cá heo, Tour tham quan đảo', 'assets/images/packages/family.jpg');
+UPDATE packages SET image_url = 'https://images.pexels.com/photos/1268855/pexels-photo-1268855.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' WHERE name_en = 'Family Adventure';
 INSERT INTO tours (name_en, name_vi, description_en, description_vi, price_per_person, duration, 
                 departure_time, meeting_point_en, meeting_point_vi, includes_text_en, includes_text_vi, image_url) 
                 VALUES ('Island Hopping Tour', 'Tour Khám Phá Đảo', 'Discover the beautiful islands surrounding Nha Trang.', 

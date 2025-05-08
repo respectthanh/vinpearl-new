@@ -10,14 +10,16 @@ $lang = $language; // For compatibility with existing code
 
 <footer class="site-footer">
     <div class="container">
-        <div class="footer-content">
+        <div class="footer-columns">
             <div class="footer-column">
-                <div class="footer-logo">
-                    <img src="assets/images/logo.png" alt="Vinpearl Resort Nha Trang Logo">
+                <h3><?php echo $language === 'vi' ? 'Về chúng tôi' : 'About Us'; ?></h3>
+                <p><?php echo $language === 'vi' ? 'Vinpearl Resort Nha Trang là khu nghỉ dưỡng sang trọng với tầm nhìn tuyệt đẹp ra biển và dịch vụ đẳng cấp 5 sao.' : 'Vinpearl Resort Nha Trang is a luxury resort with stunning ocean views and 5-star service.'; ?></p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
-                <p><?php echo $language === 'vi' ? 
-                    'Trải nghiệm sự sang trọng và đẳng cấp tại một trong những khu nghỉ dưỡng hàng đầu của Việt Nam.' : 
-                    'Experience luxury and elegance at one of Vietnam\'s premier beachfront resorts.'; ?></p>
             </div>
             
             <div class="footer-column">
@@ -38,13 +40,6 @@ $lang = $language; // For compatibility with existing code
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
-            
-            <div class="footer-column">
-                <h3><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></h3>
-                <p><i class="fas fa-map-marker-alt"></i> Vinpearl Resort Nha Trang, Đảo Hòn Tre, Nha Trang, Việt Nam</p>
-                <p><i class="fas fa-phone"></i> +84 258 598 9999</p>
-                <p><i class="fas fa-envelope"></i> info@vinpearl.com</p>
-            </div>
         </div>
         
         <div class="footer-bottom">
@@ -52,3 +47,10 @@ $lang = $language; // For compatibility with existing code
         </div>
     </div>
 </footer>
+
+<!-- Back to top button -->
+<a href="#" class="back-to-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<script src="assets/js/script.js"></script>

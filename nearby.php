@@ -39,6 +39,13 @@ $pageTitle = $language === 'vi' ? 'Điểm Tham Quan Lân Cận' : 'Nearby Attra
 include 'includes/header.php';
 ?>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+    <link rel="stylesheet" href="assets/css/nearby-styles.css">
+</head>
+
     <!-- Hero Banner -->
     <section class="nearby-hero">
         <div class="nearby-hero-content">
@@ -276,49 +283,6 @@ include 'includes/header.php';
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-columns">
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Về chúng tôi' : 'About Us'; ?></h3>
-                    <p><?php echo $language === 'vi' ? 'Vinpearl Resort Nha Trang là khu nghỉ dưỡng sang trọng với tầm nhìn tuyệt đẹp ra biển.' : 'Vinpearl Resort Nha Trang is a luxury resort with stunning ocean views.'; ?></p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Liên hệ' : 'Contact'; ?></h3>
-                    <address>
-                        <p><?php echo $language === 'vi' ? 'Địa chỉ:' : 'Address:'; ?> Vinpearl Resort Nha Trang, Đảo Hòn Tre, Nha Trang, Việt Nam</p>
-                        <p><?php echo $language === 'vi' ? 'Điện thoại:' : 'Phone:'; ?> +84 258 598 9999</p>
-                        <p>Email: info@vinpearl.com</p>
-                    </address>
-                </div>
-                
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Liên kết nhanh' : 'Quick Links'; ?></h3>
-                    <ul>
-                        <li><a href="rooms.php"><?php echo $language === 'vi' ? 'Phòng' : 'Rooms'; ?></a></li>
-                        <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
-                        <li><a href="tours.php"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
-                        <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                        </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3><?php echo $language === 'vi' ? 'Kết nối' : 'Connect'; ?></h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><img src="assets/images/icons/facebook.svg" alt="Facebook"></a>
-                        <a href="#" class="social-link"><img src="assets/images/icons/instagram.svg" alt="Instagram"></a>
-                        <a href="#" class="social-link"><img src="assets/images/icons/twitter.svg" alt="Twitter"></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; <?php echo date('Y'); ?> Vinpearl Resort Nha Trang. <?php echo $language === 'vi' ? 'Đã đăng ký bản quyền.' : 'All rights reserved.'; ?></p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="assets/js/script.js"></script>
+    <?php include 'includes/footer.php'; ?>
 </body>
 </html>
