@@ -60,7 +60,7 @@ $pageTitle = isset($pageTitle) ? $pageTitle : '';
                         <div class="user-menu">
                             <span><i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($currentUser['full_name']); ?></span>
                             <div class="dropdown-menu">
-                                <a href="profile.php"><i class="fas fa-user"></i> <?php echo $language === 'vi' ? 'Hồ sơ' : 'Profile'; ?></a>
+                                <!-- <a href="profile.php"><i class="fas fa-user"></i> <?php echo $language === 'vi' ? 'Hồ sơ' : 'Profile'; ?></a> -->
                                 <a href="bookings.php"><i class="fas fa-calendar-check"></i> <?php echo $language === 'vi' ? 'Đặt chỗ' : 'My Bookings'; ?></a>
                                 <?php if (isAdmin()): ?>
                                     <a href="admin/index.php"><i class="fas fa-cog"></i> <?php echo $language === 'vi' ? 'Quản trị' : 'Admin Panel'; ?></a>
