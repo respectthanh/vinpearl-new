@@ -228,6 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_tour'])) {
 // Page title
 $tourName = $language === 'vi' ? $selectedTour['name_vi'] : $selectedTour['name_en'];
 $pageTitle = $tourName;
+include 'includes/header.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -478,53 +479,6 @@ $pageTitle = $tourName;
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container">
-            <div class="logo">
-                <a href="index.php">
-                    <img src="assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
-                </a>
-            </div>
-            
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.php"><?php echo $language === 'vi' ? 'Trang chủ' : 'Home'; ?></a></li>
-                    <li><a href="rooms.php"><?php echo $language === 'vi' ? 'Phòng' : 'Rooms'; ?></a></li>
-                    <li><a href="packages.php"><?php echo $language === 'vi' ? 'Gói dịch vụ' : 'Packages'; ?></a></li>
-                    <li><a href="tours.php" class="active"><?php echo $language === 'vi' ? 'Tours' : 'Tours'; ?></a></li>
-                    <li><a href="nearby.php"><?php echo $language === 'vi' ? 'Điểm tham quan' : 'Nearby'; ?></a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <div class="language-selector">
-                    <a href="?id=<?php echo $tourId; ?>&lang=en" <?php echo $language === 'en' ? 'class="active"' : ''; ?>>EN</a> |
-                    <a href="?id=<?php echo $tourId; ?>&lang=vi" <?php echo $language === 'vi' ? 'class="active"' : ''; ?>>VI</a>
-                </div>
-                
-                <div class="user-actions">
-                    <?php if (isLoggedIn()): ?>
-                        <div class="user-menu">
-                            <span>Hello, <?php echo htmlspecialchars($currentUser['full_name']); ?></span>
-                            <div class="dropdown-menu">
-                                <a href="profile.php"><?php echo $language === 'vi' ? 'Hồ sơ' : 'Profile'; ?></a>
-                                <a href="bookings.php"><?php echo $language === 'vi' ? 'Đặt chỗ' : 'My Bookings'; ?></a>
-                                <?php if (isAdmin()): ?>
-                                    <a href="admin/index.php"><?php echo $language === 'vi' ? 'Quản trị' : 'Admin Panel'; ?></a>
-                                <?php endif; ?>
-                                <a href="logout.php"><?php echo $language === 'vi' ? 'Đăng xuất' : 'Logout'; ?></a>
-                            </div>
-                        </div>
-                    <?php else: ?>
-                        <a href="login.php" class="btn btn-sm"><?php echo $language === 'vi' ? 'Đăng nhập' : 'Login'; ?></a>
-                        <a href="register.php" class="btn btn-sm btn-outline"><?php echo $language === 'vi' ? 'Đăng ký' : 'Register'; ?></a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <!-- Tour Details Content -->
     <main>
         <div class="container">
