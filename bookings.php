@@ -291,7 +291,8 @@ include 'includes/header.php';
                                         <span>
                                             <?php 
                                             echo $language === 'vi' ? 'Số người: ' : 'Guests: ';
-                                            echo $booking['num_guests'];
+                                            // Fix undefined array key by using the 'guests' key instead of 'num_guests'
+                                            echo isset($booking['guests']) ? $booking['guests'] : '-';
                                             ?>
                                         </span>
                                     </div>
@@ -309,14 +310,15 @@ include 'includes/header.php';
                                         <span>
                                             <?php 
                                             echo $language === 'vi' ? 'Tổng tiền: ' : 'Total: ';
-                                            echo '$' . number_format($booking['total_amount'], 2);
+                                            // Fix undefined array key by using the 'total_price' key instead of 'total_amount'
+                                            echo '$' . number_format(isset($booking['total_price']) ? $booking['total_price'] : 0, 2);
                                             ?>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="booking-actions">
                                     <?php if ($booking['status'] === 'pending' || $booking['status'] === 'confirmed'): ?>
-                                        <a href="#" class="btn btn-sm btn-outline cancel-booking" data-type="<?php echo $booking['booking_type']; ?>" data-id="<?php echo $booking['booking_type'] === 'room' ? $booking['room_booking_id'] : ($booking['booking_type'] === 'package' ? $booking['package_booking_id'] : $booking['tour_booking_id']); ?>">
+                                        <a href="#" class="btn btn-sm btn-outline cancel-booking" data-type="<?php echo $booking['booking_type']; ?>" data-id="<?php echo $booking['id']; ?>">
                                             <?php echo $language === 'vi' ? 'Hủy đặt chỗ' : 'Cancel Booking'; ?>
                                         </a>
                                     <?php endif; ?>
@@ -374,4 +376,4 @@ function hasReviewed($userId, $type, $itemId) {
     $row = $result->fetch_assoc();
     
     return $row['review_count'] > 0;
-} 
+}

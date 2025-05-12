@@ -440,44 +440,44 @@ $activePage = 'bookings';
             </nav>
         </aside>
         
-        <!-- Admin Header -->
-        <header class="admin-header">
-            <div class="admin-header-title">
-                <h1><?php echo $pageTitle; ?></h1>
-            </div>
+        <div class="admin-content">
+            <!-- Admin Header -->
+            <header class="admin-header">
+                <div class="admin-header-title">
+                    <h1><?php echo $pageTitle; ?></h1>
+                </div>
+                
+                <div class="admin-user">
+                    <div class="search-bar">
+                        <form action="bookings.php" method="GET" class="d-flex align-center">
+                            <?php if(!empty($status_filter)): ?>
+                                <input type="hidden" name="status" value="<?php echo htmlspecialchars($status_filter); ?>">
+                            <?php endif; ?>
+                            <?php if(!empty($type_filter)): ?>
+                                <input type="hidden" name="type" value="<?php echo htmlspecialchars($type_filter); ?>">
+                            <?php endif; ?>
+                            <?php if($language === 'vi'): ?>
+                                <input type="hidden" name="lang" value="vi">
+                            <?php endif; ?>
+                            <input type="text" name="search" class="search-input" placeholder="<?php echo $language === 'vi' ? 'Tìm kiếm đặt chỗ...' : 'Search bookings...'; ?>" value="<?php echo htmlspecialchars($search_term); ?>">
+                            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    
+                    <div class="language-selector">
+                        <a href="?<?php echo http_build_query(array_merge($_GET, ['lang' => 'en'])); ?>" <?php echo $language === 'en' ? 'class="active"' : ''; ?>>EN</a> |
+                        <a href="?<?php echo http_build_query(array_merge($_GET, ['lang' => 'vi'])); ?>" <?php echo $language === 'vi' ? 'class="active"' : ''; ?>>VI</a>
+                    </div>
+                    
+                    <div class="admin-user-name">
+                        <?php echo htmlspecialchars($currentUser['full_name']); ?>
+                    </div>
+                    
+                    <a href="../logout.php" class="btn btn-sm"><?php echo $language === 'vi' ? 'Đăng xuất' : 'Logout'; ?></a>
+                </div>
+            </header>
             
-            <div class="admin-user">
-                <div class="search-bar">
-                    <form action="bookings.php" method="GET" class="d-flex align-center">
-                        <?php if(!empty($status_filter)): ?>
-                            <input type="hidden" name="status" value="<?php echo htmlspecialchars($status_filter); ?>">
-                        <?php endif; ?>
-                        <?php if(!empty($type_filter)): ?>
-                            <input type="hidden" name="type" value="<?php echo htmlspecialchars($type_filter); ?>">
-                        <?php endif; ?>
-                        <?php if($language === 'vi'): ?>
-                            <input type="hidden" name="lang" value="vi">
-                        <?php endif; ?>
-                        <input type="text" name="search" class="search-input" placeholder="<?php echo $language === 'vi' ? 'Tìm kiếm đặt chỗ...' : 'Search bookings...'; ?>" value="<?php echo htmlspecialchars($search_term); ?>">
-                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-                
-                <div class="language-selector">
-                    <a href="?<?php echo http_build_query(array_merge($_GET, ['lang' => 'en'])); ?>" <?php echo $language === 'en' ? 'class="active"' : ''; ?>>EN</a> |
-                    <a href="?<?php echo http_build_query(array_merge($_GET, ['lang' => 'vi'])); ?>" <?php echo $language === 'vi' ? 'class="active"' : ''; ?>>VI</a>
-                </div>
-                
-                <div class="admin-user-name">
-                    <?php echo htmlspecialchars($currentUser['full_name']); ?>
-                </div>
-                
-                <a href="../logout.php" class="btn btn-sm"><?php echo $language === 'vi' ? 'Đăng xuất' : 'Logout'; ?></a>
-            </div>
-        </header>
-        
-        <!-- Main Content -->
-        <main class="admin-main">
+            <main class="admin-main">
             <!-- Admin Filters -->
             <div class="admin-filters">
                 <div class="filter-item">

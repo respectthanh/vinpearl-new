@@ -235,57 +235,6 @@ $pageTitle = $language === 'vi' ? 'Quản lý nội dung' : 'Content Management'
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Home Page Content Card -->
-                    <div class="content-module-card">
-                        <div class="module-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3><?php echo $language === 'vi' ? 'Nội dung trang chủ' : 'Home Page Content'; ?></h3>
-                            <p><?php echo $language === 'vi' ? 'Quản lý nội dung hiển thị trên trang chủ như banner, slider và các phần nổi bật.' : 'Manage home page content like banners, sliders and featured sections.'; ?></p>
-                            <div class="module-actions">
-                                <a href="home-content.php<?php echo $language === 'vi' ? '?lang=vi' : ''; ?>" class="btn btn-primary">
-                                    <?php echo $language === 'vi' ? 'Quản lý trang chủ' : 'Manage Home Page'; ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- About & Contact Card -->
-                    <div class="content-module-card">
-                        <div class="module-icon">
-                            <i class="fas fa-info-circle"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3><?php echo $language === 'vi' ? 'Giới thiệu & Liên hệ' : 'About & Contact'; ?></h3>
-                            <p><?php echo $language === 'vi' ? 'Cập nhật thông tin giới thiệu về khách sạn và thông tin liên hệ.' : 'Update hotel information and contact details.'; ?></p>
-                            <div class="module-actions">
-                                <a href="about-contact.php<?php echo $language === 'vi' ? '?lang=vi' : ''; ?>" class="btn btn-primary">
-                                    <?php echo $language === 'vi' ? 'Quản lý thông tin' : 'Manage Information'; ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Media Library Card -->
-                    <div class="content-module-card">
-                        <div class="module-icon">
-                            <i class="fas fa-images"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3><?php echo $language === 'vi' ? 'Thư viện media' : 'Media Library'; ?></h3>
-                            <p><?php echo $language === 'vi' ? 'Quản lý hình ảnh và video dùng cho website.' : 'Manage images and videos used throughout the website.'; ?></p>
-                            <div class="module-actions">
-                                <a href="media.php<?php echo $language === 'vi' ? '?lang=vi' : ''; ?>" class="btn btn-primary">
-                                    <?php echo $language === 'vi' ? 'Quản lý media' : 'Manage Media'; ?>
-                                </a>
-                                <a href="media-upload.php<?php echo $language === 'vi' ? '?lang=vi' : ''; ?>" class="btn btn-outline">
-                                    <i class="fas fa-upload"></i> <?php echo $language === 'vi' ? 'Tải lên' : 'Upload'; ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
         </div>
