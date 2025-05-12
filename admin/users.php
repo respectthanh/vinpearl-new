@@ -292,11 +292,11 @@ $pageTitle = $language === 'vi' ? 'Quản lý người dùng' : 'Users Managemen
                         </select>
                     </div>
                     
-                    <div class="filter-item ml-auto">
+                    <!-- <div class="filter-item ml-auto">
                         <a href="user-form.php<?php echo $language === 'vi' ? '?lang=vi' : ''; ?>" class="btn btn-primary">
                             <i class="fas fa-plus"></i> <?php echo $language === 'vi' ? 'Thêm người dùng' : 'Add User'; ?>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
                 
                 <!-- Users List -->

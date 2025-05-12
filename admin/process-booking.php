@@ -60,15 +60,15 @@ if (!$conn) {
 switch ($type) {
     case 'room':
         $table = 'room_bookings';
-        $id_field = 'room_booking_id';
+        $id_field = 'id';
         break;
     case 'package':
         $table = 'package_bookings';
-        $id_field = 'package_booking_id';
+        $id_field = 'id';
         break;
     case 'tour':
         $table = 'tour_bookings';
-        $id_field = 'tour_booking_id';
+        $id_field = 'id';
         break;
     default:
         $_SESSION['admin_message'] = [
@@ -114,7 +114,7 @@ switch ($action) {
 }
 
 // Update booking status
-$update_query = "UPDATE $table SET status = ?, updated_at = NOW() WHERE $id_field = ?";
+$update_query = "UPDATE $table SET status = ? WHERE $id_field = ?";
 $stmt = $conn->prepare($update_query);
 $stmt->bind_param('si', $new_status, $id);
 

@@ -66,7 +66,7 @@ if (!empty($where_conditions)) {
 }
 
 // Group by and order
-$query .= " GROUP BY r.id ORDER BY r.created_at DESC";
+$query .= " GROUP BY r.id ORDER BY r.id DESC";
 
 // Count total results for pagination
 $count_query = "SELECT COUNT(*) as total FROM rooms";
