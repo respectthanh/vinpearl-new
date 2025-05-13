@@ -54,6 +54,16 @@ if ($is_edit) {
     }
     
     $room = $result->fetch_assoc();
+    
+    // Determine room type from bed_type when editing
+    // This is a reverse lookup to map bed_type back to type
+    $room['type'] = 'standard'; // Default value
+    foreach ($roomTypes as $typeKey => $typeLabel) {
+        if ($room['bed_type'] == $typeLabel) {
+            $room['type'] = $typeKey;
+            break;
+        }
+    }
 }
 
 // Process form submission
@@ -63,11 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name_vi = trim($_POST['name_vi']);
     $description_en = trim($_POST['description_en']);
     $description_vi = trim($_POST['description_vi']);
-    $type = $_POST['type'];
+    $type = $_POST['type']; // We'll still use this variable for selecting images
     $price_per_night = (float)$_POST['price_per_night'];
     $capacity = (int)$_POST['capacity'];
-    $bed_count = (int)$_POST['bed_count'];
     $room_size = (int)$_POST['room_size'];
+    $bed_type = $roomTypes[$type] ?? ''; // Convert type to bed_type label
     // is_active column doesn't exist yet, so we'll comment this out
     // $is_active = isset($_POST['is_active']) ? 1 : 0;
     
@@ -112,29 +122,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     name_vi = ?,
                     description_en = ?,
                     description_vi = ?,
-                    type = ?,
+                    bed_type = ?,
                     image_url = ?,
                     price_per_night = ?,
                     capacity = ?,
-                    bed_count = ?,
                     room_size = ?,
                     amenities = ?,
-                    updated_at = NOW()
+                    is_available = 1
                 WHERE id = ?
             ";
             
             $stmt = $conn->prepare($query);
             $stmt->bind_param(
-                'ssssssdiiisi',
+                'ssssssdissi',
                 $name_en,
                 $name_vi,
                 $description_en,
                 $description_vi,
-                $type,
+                $bed_type,
                 $image_url,
                 $price_per_night,
                 $capacity,
-                $bed_count,
                 $room_size,
                 $amenities_json,
                 $id
@@ -143,24 +151,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Create new room
             $query = "
                 INSERT INTO rooms (
-                    name_en, name_vi, description_en, description_vi, type,
-                    image_url, price_per_night, capacity, bed_count, 
-                    room_size, amenities, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
+                    name_en, name_vi, description_en, description_vi, bed_type,
+                    image_url, price_per_night, capacity, room_size, 
+                    amenities, is_available
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
             ";
             
             $stmt = $conn->prepare($query);
             $stmt->bind_param(
-                'ssssssdiiis',
+                'ssssssdiss',
                 $name_en,
                 $name_vi,
                 $description_en,
                 $description_vi,
-                $type,
+                $bed_type,
                 $image_url,
                 $price_per_night,
                 $capacity,
-                $bed_count,
                 $room_size,
                 $amenities_json
             );
@@ -474,17 +481,12 @@ $pageTitle = $language === 'vi'
                                 
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="bed_count" class="form-label"><?php echo $language === 'vi' ? 'Số giường' : 'Number of beds'; ?></label>
-                                        <input type="number" id="bed_count" name="bed_count" class="form-control" min="1" value="<?php echo isset($room['bed_count']) ? $room['bed_count'] : '1'; ?>">
+                                        <label for="room_size" class="form-label"><?php echo $language === 'vi' ? 'Diện tích (m²)' : 'Room size (m²)'; ?></label>
+                                        <input type="text" id="room_size" name="room_size" class="form-control" value="<?php echo isset($room['room_size']) ? $room['room_size'] : '25 m²'; ?>">
                                     </div>
                                 </div>
                                 
-                                <div class="form-col">
-                                    <div class="form-group">
-                                        <label for="room_size" class="form-label"><?php echo $language === 'vi' ? 'Diện tích (m²)' : 'Room size (m²)'; ?></label>
-                                        <input type="number" id="room_size" name="room_size" class="form-control" min="1" value="<?php echo isset($room['room_size']) ? $room['room_size'] : '25'; ?>">
-                                    </div>
-                                </div>
+                                <!-- We've already set bed_type based on the room type selection, so we don't need an additional field -->
                             </div>
                             
                             <div class="form-group">

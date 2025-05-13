@@ -14,11 +14,47 @@ $language = isset($_GET['lang']) && $_GET['lang'] === 'vi' ? 'vi' : 'en';
 // Get tour ID from URL
 $tourId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-// For consistency with tours.php, we'll use the same hardcoded tour data
-// This ensures we use the same image URLs for all tours
+// First check if the tour exists in the database
+$conn = connectDatabase();
 $selectedTour = null;
+$databaseTourId = null;
 
-// If tour not found in database, fall back to hardcoded tours
+if ($conn) {
+    $stmt = $conn->prepare("SELECT * FROM tours WHERE id = ?");
+    $stmt->bind_param("i", $tourId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        // Tour found in database
+        $dbTour = $result->fetch_assoc();
+        $databaseTourId = $dbTour['id']; // Store the real database ID
+        
+        // Create a tour object with the same structure as our hardcoded tours
+        $selectedTour = [
+            'id' => $dbTour['id'],
+            'name_en' => $dbTour['name_en'],
+            'name_vi' => $dbTour['name_vi'],
+            'description_en' => $dbTour['description_en'],
+            'description_vi' => $dbTour['description_vi'],
+            'category_en' => $dbTour['type'], // Assuming type is used for category
+            'category_vi' => $dbTour['type'],
+            'duration' => $dbTour['duration'] . ' hours',
+            'max_people' => $dbTour['max_participants'],
+            'price_per_person' => $dbTour['price'],
+            'meeting_point_en' => $dbTour['location'],
+            'meeting_point_vi' => $dbTour['location'],
+            'includes' => $dbTour['includes_en'],
+            'image_url' => $dbTour['image_url'],
+            'full_description_en' => $dbTour['description_en'],
+            'full_description_vi' => $dbTour['description_vi']
+        ];
+    }
+    
+    $stmt->close();
+}
+
+// If tour not found in database, fall back to hardcoded tours (only for display purposes)
 if (!$selectedTour) {
     // For this enhancement demo, we'll use hardcoded tours
     $tours = [
@@ -180,47 +216,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_tour'])) {
         // Calculate total price
         $totalPrice = $selectedTour['price_per_person'] * $formData['num_people'];
         
-        // Save booking to database
-        $conn = connectDatabase();
-        if ($conn) {
-            // Prepare SQL statement using the existing table structure
-            // The table has 'guests' instead of 'num_people' and no 'special_requests' column
-            $stmt = $conn->prepare("INSERT INTO tour_bookings (user_id, tour_id, tour_date, guests, total_price, status) VALUES (?, ?, ?, ?, ?, 'pending')");
-            
-            if ($stmt) {
-                // Bind parameters
-                $stmt->bind_param("iisid", 
-                    $currentUser['id'], 
-                    $selectedTour['id'], 
-                    $formData['tour_date'], 
-                    $formData['num_people'], 
-                    $totalPrice
-                );
+        // Make sure we have a valid tour ID in the database - this is crucial
+        if (!$databaseTourId) {
+            $bookingError = $language === 'vi' ? 
+                'Không thể đặt tour này. Tour không tồn tại trong hệ thống.' : 
+                'Cannot book this tour. Tour does not exist in the system.';
+        } else {
+            // Save booking to database
+            $conn = connectDatabase();
+            if ($conn) {
+                // Prepare SQL statement using the existing table structure
+                // The table has 'guests' instead of 'num_people' and no 'special_requests' column
+                $stmt = $conn->prepare("INSERT INTO tour_bookings (user_id, tour_id, tour_date, guests, total_price, status) VALUES (?, ?, ?, ?, ?, 'pending')");
                 
-                // Execute statement
-                if ($stmt->execute()) {
-                    $bookingSuccess = true;
+                if ($stmt) {
+                    // Use the database tour ID instead of the selected tour ID to avoid foreign key constraint errors
+                    $stmt->bind_param("iisid", 
+                        $currentUser['id'], 
+                        $databaseTourId,  // Use database ID instead of selectedTour['id']
+                        $formData['tour_date'], 
+                        $formData['num_people'], 
+                        $totalPrice
+                    );
                     
-                    // Clear form data after successful submission
-                    $formData = [];
+                    // Execute statement
+                    if ($stmt->execute()) {
+                        $bookingSuccess = true;
+                        
+                        // Clear form data after successful submission
+                        $formData = [];
+                    } else {
+                        $bookingError = $language === 'vi' ? 
+                            'Có lỗi xảy ra khi đặt tour. Vui lòng thử lại. Error: ' . $stmt->error : 
+                            'An error occurred while booking the tour. Please try again. Error: ' . $stmt->error;
+                    }
+                    
+                    $stmt->close();
                 } else {
                     $bookingError = $language === 'vi' ? 
                         'Có lỗi xảy ra khi đặt tour. Vui lòng thử lại.' : 
                         'An error occurred while booking the tour. Please try again.';
                 }
                 
-                $stmt->close();
+                $conn->close();
             } else {
                 $bookingError = $language === 'vi' ? 
-                    'Có lỗi xảy ra khi đặt tour. Vui lòng thử lại.' : 
-                    'An error occurred while booking the tour. Please try again.';
+                    'Không thể kết nối đến cơ sở dữ liệu. Vui lòng thử lại sau.' : 
+                    'Could not connect to the database. Please try again later.';
             }
-            
-            $conn->close();
-        } else {
-            $bookingError = $language === 'vi' ? 
-                'Không thể kết nối đến cơ sở dữ liệu. Vui lòng thử lại sau.' : 
-                'Could not connect to the database. Please try again later.';
         }
     }
 }
