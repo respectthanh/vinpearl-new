@@ -26,6 +26,15 @@ $is_edit = $id > 0;
 $room = [];
 $errors = [];
 
+// Room types - Moved up here before it's used
+$roomTypes = [
+    'standard' => $language === 'vi' ? 'Phòng Tiêu Chuẩn' : 'Standard Room',
+    'deluxe' => $language === 'vi' ? 'Phòng Deluxe' : 'Deluxe Room',
+    'suite' => $language === 'vi' ? 'Phòng Suite' : 'Suite',
+    'villa' => $language === 'vi' ? 'Biệt Thự' : 'Villa',
+    'family' => $language === 'vi' ? 'Phòng Gia Đình' : 'Family Room'
+];
+
 // Room type images as preferred by the user
 $roomTypeImages = [
     'standard' => 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000&auto=format&fit=crop',
@@ -188,15 +197,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-// Room types
-$roomTypes = [
-    'standard' => $language === 'vi' ? 'Phòng Tiêu Chuẩn' : 'Standard Room',
-    'deluxe' => $language === 'vi' ? 'Phòng Deluxe' : 'Deluxe Room',
-    'suite' => $language === 'vi' ? 'Phòng Suite' : 'Suite',
-    'villa' => $language === 'vi' ? 'Biệt Thự' : 'Villa',
-    'family' => $language === 'vi' ? 'Phòng Gia Đình' : 'Family Room'
-];
 
 // Common amenities
 $commonAmenities = [
