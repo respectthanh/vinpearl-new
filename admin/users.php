@@ -167,12 +167,6 @@ $pageTitle = $language === 'vi' ? 'Quản lý người dùng' : 'Users Managemen
                         </a>
                     </li>
                     <li>
-                        <a href="reviews.php">
-                            <i class="fas fa-star"></i>
-                            <span><?php echo $language === 'vi' ? 'Quản lý đánh giá' : 'Reviews Management'; ?></span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="nearby.php">
                             <i class="fas fa-map-marker-alt"></i>
                             <span><?php echo $language === 'vi' ? 'Địa điểm gần đó' : 'Nearby Places'; ?></span>

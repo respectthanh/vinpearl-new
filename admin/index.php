@@ -29,19 +29,6 @@ if ($conn) {
     $recentBookingsStmt->execute();
     $recentBookings = $recentBookingsStmt->get_result()->fetch_all(MYSQLI_ASSOC);
     
-    // Get pending reviews
-    $pendingReviewsStmt = $conn->prepare("
-        SELECT r.id, r.title_en, r.title_vi, r.rating, r.type, r.created_at,
-               u.full_name as user_name
-        FROM reviews r
-        JOIN users u ON r.user_id = u.id
-        WHERE r.is_approved = 0
-        ORDER BY r.created_at DESC
-        LIMIT 5
-    ");
-    $pendingReviewsStmt->execute();
-    $pendingReviews = $pendingReviewsStmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    
     // Get occupancy rate for current month
     $currentMonth = date('Y-m');
     $occupancyStmt = $conn->prepare("
@@ -129,12 +116,6 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
                         </a>
                     </li>
                     <li>
-                        <a href="reviews.php">
-                            <i class="fas fa-star"></i>
-                            <span><?php echo $language === 'vi' ? 'Quản lý đánh giá' : 'Reviews Management'; ?></span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="nearby.php">
                             <i class="fas fa-map-marker-alt"></i>
                             <span><?php echo $language === 'vi' ? 'Địa điểm gần đó' : 'Nearby Places'; ?></span>
@@ -209,17 +190,6 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
                             <div class="stat-period"><?php echo $language === 'vi' ? 'Gần đây' : 'Recent'; ?></div>
                         </div>
                     </div>
-                    
-                    <div class="admin-stat-card">
-                        <div class="stat-icon">
-                            <i class="icon-reviews"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3><?php echo $language === 'vi' ? 'Đánh giá đang chờ' : 'Pending Reviews'; ?></h3>
-                            <div class="stat-value"><?php echo count($pendingReviews); ?></div>
-                            <div class="stat-period"><?php echo $language === 'vi' ? 'Cần phê duyệt' : 'Need approval'; ?></div>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Recent Bookings -->
@@ -286,78 +256,10 @@ $pageTitle = $language === 'vi' ? 'Bảng điều khiển quản trị' : 'Admin
                         <?php endif; ?>
                     </div>
                 </div>
-                
-                <!-- Pending Reviews -->
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h2><?php echo $language === 'vi' ? 'Đánh giá đang chờ duyệt' : 'Pending Reviews'; ?></h2>
-                        <a href="reviews.php" class="btn btn-sm"><?php echo $language === 'vi' ? 'Xem tất cả' : 'View all'; ?></a>
-                    </div>
-                    
-                    <div class="admin-card-content">
-                        <?php if (empty($pendingReviews)): ?>
-                            <p><?php echo $language === 'vi' ? 'Không có đánh giá nào đang chờ duyệt.' : 'No pending reviews.'; ?></p>
-                        <?php else: ?>
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th><?php echo $language === 'vi' ? 'Khách hàng' : 'Customer'; ?></th>
-                                        <th><?php echo $language === 'vi' ? 'Tiêu đề' : 'Title'; ?></th>
-                                        <th><?php echo $language === 'vi' ? 'Loại' : 'Type'; ?></th>
-                                        <th><?php echo $language === 'vi' ? 'Đánh giá' : 'Rating'; ?></th>
-                                        <th><?php echo $language === 'vi' ? 'Ngày' : 'Date'; ?></th>
-                                        <th><?php echo $language === 'vi' ? 'Hành động' : 'Actions'; ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($pendingReviews as $review): ?>
-                                        <tr>
-                                            <td><?php echo $review['id']; ?></td>
-                                            <td><?php echo htmlspecialchars($review['user_name']); ?></td>
-                                            <td><?php echo htmlspecialchars($review[$language === 'vi' ? 'title_vi' : 'title_en']); ?></td>
-                                            <td>
-                                                <?php 
-                                                if ($language === 'vi') {
-                                                    $typeLabels = [
-                                                        'room' => 'Phòng',
-                                                        'package' => 'Gói',
-                                                        'tour' => 'Tour'
-                                                    ];
-                                                    echo $typeLabels[$review['type']] ?? $review['type'];
-                                                } else {
-                                                    echo ucfirst($review['type']);
-                                                }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <div class="rating-stars">
-                                                    <?php 
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        echo $i <= $review['rating'] ? '★' : '☆';
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </td>
-                                            <td><?php echo formatDate($review['created_at']); ?></td>
-                                            <td>
-                                                <div class="admin-action-buttons">
-                                                    <a href="review-details.php?id=<?php echo $review['id']; ?>" class="btn btn-sm admin-btn-view">
-                                                        <?php echo $language === 'vi' ? 'Xem' : 'View'; ?>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php endif; ?>
-                    </div>
-                </div>
             </main>
         </div>
     </div>
 
     <script src="../assets/js/script.js"></script>
 </body>
-</html> 
+</html>
