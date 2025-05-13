@@ -393,7 +393,7 @@ $activePage = 'bookings';
         <aside class="admin-sidebar">
             <div class="admin-brand">
                 <a href="index.php">
-                    <img src="../assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
+                    <img src="../assets/images/logo.svg" alt="Vinpearl Resort Nha Trang">
                     <span><?php echo $language === 'vi' ? 'Quản trị' : 'Admin'; ?></span>
                 </a>
             </div>
@@ -598,13 +598,13 @@ $activePage = 'bookings';
                                                 // Display arrival date based on booking type
                                                 switch ($booking['booking_type']) {
                                                     case 'room':
-                                                        echo formatDate($booking['check_in_date'], 'M d, Y');
+                                                        echo formatDate($booking['check_in_date'] ?? null, 'M d, Y');
                                                         break;
                                                     case 'package':
-                                                        echo formatDate($booking['start_date'], 'M d, Y');
+                                                        echo formatDate(isset($booking['start_date']) ? $booking['start_date'] : null, 'M d, Y');
                                                         break;
                                                     case 'tour':
-                                                        echo formatDate($booking['tour_date'], 'M d, Y');
+                                                        echo formatDate($booking['tour_date'] ?? null, 'M d, Y');
                                                         break;
                                                 }
                                                 ?>

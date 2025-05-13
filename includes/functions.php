@@ -35,12 +35,17 @@ function formatCurrency($amount, $currency = 'USD') {
 /**
  * Format date in the preferred format
  * 
- * @param string $date   Date string
+ * @param string|null $date   Date string
  * @param string $format PHP date format (default: Y-m-d)
  * 
- * @return string Formatted date
+ * @return string|null Formatted date or null if input is empty
  */
 function formatDate($date, $format = 'Y-m-d') {
+    // Return null or empty string if date is not provided
+    if ($date === null || $date === '') {
+        return null;
+    }
+    
     return date($format, strtotime($date));
 }
 

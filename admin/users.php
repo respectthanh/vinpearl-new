@@ -141,7 +141,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý người dùng' : 'Users Managemen
         <aside class="admin-sidebar">
             <div class="admin-brand">
                 <a href="index.php">
-                    <img src="../assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
+                    <img src="../assets/images/logo.svg" alt="Vinpearl Resort Nha Trang">
                     <span><?php echo $language === 'vi' ? 'Quản trị' : 'Admin'; ?></span>
                 </a>
             </div>

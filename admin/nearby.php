@@ -146,7 +146,8 @@ $categoryLabels = [
     'shopping' => $language === 'vi' ? 'Mua sắm' : 'Shopping',
     'beach' => $language === 'vi' ? 'Bãi biển' : 'Beach',
     'nature' => $language === 'vi' ? 'Thiên nhiên' : 'Nature',
-    'entertainment' => $language === 'vi' ? 'Giải trí' : 'Entertainment'
+    'entertainment' => $language === 'vi' ? 'Giải trí' : 'Entertainment',
+    'cafe' => $language === 'vi' ? 'Quán cà phê' : 'Cafe'
 ];
 
 // Page title
@@ -169,7 +170,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
         <aside class="admin-sidebar">
             <div class="admin-brand">
                 <a href="index.php">
-                    <img src="../assets/images/logo.png" alt="Vinpearl Resort Nha Trang">
+                    <img src="../assets/images/logo.svg" alt="Vinpearl Resort Nha Trang">
                     <span><?php echo $language === 'vi' ? 'Quản trị' : 'Admin'; ?></span>
                 </a>
             </div>
@@ -274,6 +275,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                                         case 'beach': echo 'fas fa-umbrella-beach'; break;
                                         case 'nature': echo 'fas fa-leaf'; break;
                                         case 'entertainment': echo 'fas fa-ticket-alt'; break;
+                                        case 'cafe': echo 'fas fa-coffee'; break;
                                         default: echo 'fas fa-map-marker-alt';
                                     }
                                 ?>"></i>
@@ -346,6 +348,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                                                             case 'beach': echo 'fas fa-umbrella-beach'; break;
                                                             case 'nature': echo 'fas fa-leaf'; break;
                                                             case 'entertainment': echo 'fas fa-ticket-alt'; break;
+                                                            case 'cafe': echo 'fas fa-coffee'; break;
                                                             default: echo 'fas fa-map-marker-alt';
                                                         }
                                                     ?>"></i>
@@ -366,7 +369,7 @@ $pageTitle = $language === 'vi' ? 'Quản lý địa điểm gần đó' : 'Near
                                             <p class="place-address"><?php echo htmlspecialchars($place['address']); ?></p>
                                             <div class="place-distance">
                                                 <i class="fas fa-walking"></i>
-                                                <?php echo $place['distance']; ?> <?php echo $language === 'vi' ? 'km từ khách sạn' : 'km from hotel'; ?>
+                                                <?php echo isset($place['distance']) ? $place['distance'] : '0'; ?> <?php echo $language === 'vi' ? 'km từ khách sạn' : 'km from hotel'; ?>
                                             </div>
                                             
                                             <div class="place-actions">
