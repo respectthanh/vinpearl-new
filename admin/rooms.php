@@ -304,19 +304,19 @@ $pageTitle = $language === 'vi' ? 'Quản lý phòng' : 'Rooms Management';
                                         <?php foreach ($rooms as $room): ?>
                                             <tr>
                                                 <td class="table-image">
-                                                    <img src="<?php echo $room['image_url'] ? htmlspecialchars($room['image_url']) : '../assets/images/room-placeholder.jpg'; ?>" alt="<?php echo htmlspecialchars($room['name_' . $language]); ?>">
+                                                    <img src="<?php echo $room['image_url'] ? htmlspecialchars($room['image_url']) : '../assets/images/room-placeholder.jpg'; ?>" alt="<?php echo htmlspecialchars($room['name_' . $language] ?? ''); ?>">
                                                 </td>
                                                 <td>
                                                     <div class="room-name">
-                                                        <?php echo htmlspecialchars($room['name_' . $language]); ?>
+                                                        <?php echo htmlspecialchars($room['name_' . $language] ?? ''); ?>
                                                     </div>
                                                 </td>
-                                                <td><?php echo htmlspecialchars($room['type']); ?></td>
+                                                <td><?php echo htmlspecialchars($room['bed_type'] ?? ''); ?></td>
                                                 <td><?php echo number_format($room['price_per_night'], 2); ?> $</td>
                                                 <td>
                                                     <i class="fas fa-user"></i> <?php echo $room['capacity']; ?>
-                                                    <?php if ($room['bed_count'] > 0): ?>
-                                                       | <i class="fas fa-bed"></i> <?php echo $room['bed_count']; ?>
+                                                    <?php if (!empty($room['bed_type'])): ?>
+                                                       | <i class="fas fa-bed"></i> <?php echo htmlspecialchars($room['bed_type']); ?>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
